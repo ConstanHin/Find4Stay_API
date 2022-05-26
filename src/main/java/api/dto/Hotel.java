@@ -97,16 +97,10 @@ public class Hotel {
 	public List<Reserva> getReserva() {
 		return reserva;
 	}
+	
 	public void setReserva(List<Reserva> reserva) {
 		this.reserva = reserva;
 	}
-	public Empresa getId_empresa() {
-		return id_empresa;
-	}
-	public void setId_empresa(Empresa id_empresa) {
-		this.id_empresa = id_empresa;
-	}
-
 
 	@Override
 	public String toString() {
