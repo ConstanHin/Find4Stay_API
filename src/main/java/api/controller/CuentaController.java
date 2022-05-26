@@ -24,20 +24,31 @@ public class CuentaController {
 	@Autowired
 	CuentaServiceImpl cuentaServiceImpl;
 	
-	@GetMapping("/cuenta")
+	/**
+	 * Get All
+	 */
+	@GetMapping("/cuentas")
 	public List<Cuenta> listarCcursos(){
 		return cuentaServiceImpl.listarCuenta();
 	}
 	
-	
-	@PostMapping("/cuenta")
-	public Cuenta salvarCuenta(@RequestBody Cuenta cuentas) {
+	/**
+	 * Crear nuevo
+	 * @param cuenta
+	 * @return
+	 */
+	@PostMapping("/cuentas")
+	public Cuenta salvarCuenta(@RequestBody Cuenta cuenta) {
 		
-		return cuentaServiceImpl.guardarCuenta(cuentas);
+		return cuentaServiceImpl.guardarCuenta(cuenta);
 	}
 	
-	
-	@GetMapping("/cuenta/{id}")
+	/**
+	 * Get by ID
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/cuentas/{id}")
 	public Cuenta CuentaXID(@PathVariable(name="id") Long id) {
 		
 		Cuenta cuenta_xid= new Cuenta();
@@ -49,7 +60,13 @@ public class CuentaController {
 		return cuenta_xid;
 	}
 	
-	@PutMapping("/cuenta/{id}")
+	/**
+	 * Update by id
+	 * @param id
+	 * @param cuenta
+	 * @return
+	 */
+	@PutMapping("/cuentas/{id}")
 	public Cuenta actualizarCuenta(@PathVariable(name="id")Long id,@RequestBody Cuenta cuenta) {
 		
 		Cuenta cuenta_seleccionado= new Cuenta();
@@ -71,7 +88,11 @@ public class CuentaController {
 		return cuenta_actualizado;
 	}
 	
-	@DeleteMapping("/cuenta/{id}")
+	/**
+	 * Delete by ID
+	 * @param id
+	 */
+	@DeleteMapping("/cuentas/{id}")
 	public void eleiminarCuenta(@PathVariable(name="id")Long id) {
 		cuentaServiceImpl.eliminarCuenta(id);
 	}

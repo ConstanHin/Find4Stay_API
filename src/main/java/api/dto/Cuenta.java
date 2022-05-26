@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+//import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,6 +35,7 @@ public class Cuenta {
 	@Column(name = "password")
 	private String password;
 
+//	@Email
 	@Column(name = "email")
 	private String email;
 
