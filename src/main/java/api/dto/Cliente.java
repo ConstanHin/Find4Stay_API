@@ -31,7 +31,7 @@ public class Cliente {
 	private String dni;
 	
 	@OneToMany
-	@JoinColumn(name="id_cliente")
+	@JoinColumn(name="id_cliente" , unique=true, nullable=false)
 	private List<Reserva> reserva;
 	
 	@ManyToOne

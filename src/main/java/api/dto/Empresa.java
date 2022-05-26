@@ -31,7 +31,7 @@ public class Empresa {
 	private String nombre;
 
 	@OneToMany
-	@JoinColumn(name = "id_empresa")
+	@JoinColumn(name = "id_empresa" , unique=true, nullable=false)
 	private List<Hotel> hotel;
 	
 	@ManyToOne
