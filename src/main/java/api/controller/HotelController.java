@@ -33,30 +33,31 @@ public class HotelController {
 	}
 	
 	@GetMapping("/Hotel/{id}")
-	public Hotel Hotel_ID(@PathVariable(name="id_Hotel") Long id) {
+	public Hotel hotel_ID(@PathVariable(name="id_Hotel") Long id) {
 		
-		Hotel Hotel_id= new Hotel();
+		Hotel hotel_id= new Hotel();
 		
-		Hotel_id=HotelServiceImpl.HotelXID(id);
+		hotel_id=HotelServiceImpl.HotelXID(id);
 		
-		return Hotel_id;
+		return hotel_id;
 	}
 	
 	@PutMapping("/Hotel/{id}")
-	public Hotel actualizarHotel(@PathVariable(name="id")Long id,@RequestBody Hotel Hotel) {
+	public Hotel actualizarHotel(@PathVariable(name="id")Long id,@RequestBody Hotel hotel) {
 		
-		Hotel Hotel_seleccionado= new Hotel();
-		Hotel Hotel_actualizado= new Hotel(); 
+		Hotel hotel_seleccionado= new Hotel();
+		Hotel hotel_actualizado= new Hotel(); 
 		
-		Hotel_seleccionado= HotelServiceImpl.HotelXID(id);
+		hotel_seleccionado= HotelServiceImpl.HotelXID(id);
 		
-		Hotel_seleccionado.setNombre(Hotel.getNombre());
-		Hotel_seleccionado.setCategoria(Hotel.getCategoria());
-		Hotel_seleccionado.setPoblacion(Hotel.getPoblacion());
-		Hotel_seleccionado.setUbicacion(Hotel.getUbicacion());
-		Hotel_seleccionado.setPrecio(Hotel.getPrecio());
+		hotel_seleccionado.setNombre(hotel.getNombre());
+		hotel_seleccionado.setCategoria(hotel.getCategoria());
+		hotel_seleccionado.setPoblacion(hotel.getPoblacion());
+		hotel_seleccionado.setUbicacion(hotel.getUbicacion());
+		hotel_seleccionado.setPrecio(hotel.getPrecio());
 		
-		return Hotel_actualizado;
+		
+		return hotel_actualizado;
 	}
 	
 	@DeleteMapping("/Hotel/{id}")
