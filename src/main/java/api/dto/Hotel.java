@@ -36,15 +36,17 @@ public class Hotel {
 	private double precio;
 	
 	
-//Constructores
-//	@OneToMany
-//	@JoinColumn(name="id_reserva")
-//	private List<Reserva> reserva;
-//	
-//	@ManyToOne 
-//	@JoinColumn(name = "id_empresa")
-//	private Empresa empresa;
+
+	@OneToMany
+	@JoinColumn(name="id_reserva")
+	private List<Reserva> reserva;
 	
+	@ManyToOne 
+	@JoinColumn(name = "id_empresa")
+	private Empresa empresa;
+
+	
+	//Constructores	
 	public Hotel(){
 		
 	}
@@ -90,21 +92,21 @@ public class Hotel {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-//	@JsonIgnore
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reserva")
-//	public List<Reserva> getReserva() {
-//		return reserva;
-//	}
-//	public void setReserva(List<Reserva> reserva) {
-//		this.reserva = reserva;
-//	}
-//	public Empresa getId_empresa() {
-//		return id_empresa;
-//	}
-//	public void setId_empresa(Empresa id_empresa) {
-//		this.id_empresa = id_empresa;
-//	}
-//	
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reserva")
+	public List<Reserva> getReserva() {
+		return reserva;
+	}
+	public void setReserva(List<Reserva> reserva) {
+		this.reserva = reserva;
+	}
+	public Empresa getId_empresa() {
+		return id_empresa;
+	}
+	public void setId_empresa(Empresa id_empresa) {
+		this.id_empresa = id_empresa;
+	}
+	
 	
 	
 }

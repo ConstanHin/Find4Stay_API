@@ -55,7 +55,8 @@ public class HotelController {
 		hotel_seleccionado.setPoblacion(hotel.getPoblacion());
 		hotel_seleccionado.setUbicacion(hotel.getUbicacion());
 		hotel_seleccionado.setPrecio(hotel.getPrecio());
-		
+		hotel_seleccionado.getId_empresa(hotel.getId_empresa());
+		hotel_seleccionado.getReserva(hotel.getReserva());		
 		
 		return hotel_actualizado;
 	}
