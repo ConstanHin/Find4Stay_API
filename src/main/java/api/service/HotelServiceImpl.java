@@ -25,7 +25,7 @@ public class HotelServiceImpl implements IHotelService {
 	}
 
 	@Override
-	public Hotel HotelXID(Integer id) {
+	public Hotel HotelXID(Long id) {
 		return iHotelDAO.findById(id).get();
 	}
 
@@ -35,8 +35,8 @@ public class HotelServiceImpl implements IHotelService {
 	}
 
 	@Override
-	public void eliminarHotel(Integer id) {
-		iHotelDAO.deleteById(id);
+	public void eliminarHotel(Long id) {
+		iHotelDAO.deleteById(id);;
 	}
 
 }

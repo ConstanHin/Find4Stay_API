@@ -20,22 +20,23 @@ import javax.persistence.GeneratedValue;
 @Table(name="hoteles")
 public class Hotel {
 	
-	
+	//Atributos entidad Hotel
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column(name = "nombre_hotel")
+	private Long id;
+	@Column(name = "nombre")
 	private char nombre;
 	@Column(name = "categoria")
 	private char categoria;
 	@Column(name = "poblacion")
 	private char poblacion;
-	@Column(name = "ubicacion_geografica")
+	@Column(name = "ubicacion")
 	private char ubicacion;
-	@Column(name = "precio_noche")
+	@Column(name = "precio")
 	private double precio;
 	
 	
+//Constructores
 //	@OneToMany
 //	@JoinColumn(name="id_reserva")
 //	private List<Reserva> reserva;
@@ -47,14 +48,16 @@ public class Hotel {
 	public Hotel(){
 		
 	}
+	
+	
 	public Hotel(char nombre, char categoria, char poblacion, char ubicacion, double precio){
 		
-		
+	//getters and setters	
 	}
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public char getNombre() {
