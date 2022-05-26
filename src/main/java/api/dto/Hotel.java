@@ -36,7 +36,7 @@ public class Hotel {
 	private double precio;
 
 	@OneToMany
-	@JoinColumn(name = "id_reserva")
+	@JoinColumn(name = "id_hotel")
 	private List<Reserva> reserva;
 
 	@ManyToOne

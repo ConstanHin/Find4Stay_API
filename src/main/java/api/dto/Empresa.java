@@ -30,14 +30,14 @@ public class Empresa {
 	@Column (name = "nombre")
 	private String nombre;
 
+	@OneToMany
+	@JoinColumn(name = "id_empresa")
+	private List<Hotel> hotel;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cuenta")
 	private Cuenta cuenta;
 	
-	@OneToMany
-	@JoinColumn(name = "id_hotel")
-	private List<Hotel> hotel;
 	
 	
 	//Constructor Default

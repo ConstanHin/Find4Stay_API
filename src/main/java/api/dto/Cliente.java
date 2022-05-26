@@ -30,13 +30,14 @@ public class Cliente {
 	@Column
 	private String dni;
 	
+	@OneToMany
+	@JoinColumn(name="id_cliente")
+	private List<Reserva> reserva;
+	
 	@ManyToOne
 	@JoinColumn(name="id_cuenta")
 	private Cuenta cuenta;
 	
-	@OneToMany
-	@JoinColumn(name="id_reserva")
-	private List<Reserva> reserva;
 
 	/*
 	 * Constructors
