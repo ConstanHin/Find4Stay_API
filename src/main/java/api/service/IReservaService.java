@@ -16,7 +16,7 @@ public interface IReservaService {
 		public Reserva guardarReservas(Reserva reservas);
 		
 		
-		//Leer
+		//Leer por id
 		public Reserva reservasID(Long id);
 		
 		

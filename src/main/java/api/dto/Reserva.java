@@ -29,13 +29,13 @@ public class Reserva {
 	@Column(name = "importe_reserva")
 	private Integer importe_reserva;
 	
-//	@ManyToOne
-//	@JoinColumn(name= "id_cliente")
-//	private Cliente cliente;
+	@ManyToOne
+	@JoinColumn(name= "id_cliente")
+	private Cliente cliente;
 	
-//	@ManyToOne
-//	@JoinColumn(name= "id_hotel")
-//	private Hotel hotel;
+	@ManyToOne
+	@JoinColumn(name= "id_hotel")
+	private Hotel hotel;
 	
 	//Constructor Default
 	public Reserva() {
@@ -102,6 +102,53 @@ public class Reserva {
 
 	public void setImporte_reserva(Integer importe_reserva) {
 		this.importe_reserva = importe_reserva;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	/**
+	 * @return the cliente
+	 */
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	/**
+	 * @param cliente the cliente to set
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	/**
+	 * @return the hotel
+	 */
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+
+	/**
+	 * @param hotel the hotel to set
+	 */
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 
 
