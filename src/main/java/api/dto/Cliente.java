@@ -31,11 +31,11 @@ public class Cliente {
 	private String dni;
 	
 	@OneToMany
-	@JoinColumn(name="id_cliente" , unique=true, nullable=false)
+	@JoinColumn(name="id_cliente")
 	private List<Reserva> reserva;
 	
 	@ManyToOne
-	@JoinColumn(name="id_cuenta")
+	@JoinColumn(name="id_cuenta", unique=true, nullable=false)
 	private Cuenta cuenta;
 	
 

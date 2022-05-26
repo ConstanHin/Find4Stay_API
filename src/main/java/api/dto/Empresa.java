@@ -31,11 +31,11 @@ public class Empresa {
 	private String nombre;
 
 	@OneToMany
-	@JoinColumn(name = "id_empresa" , unique=true, nullable=false)
+	@JoinColumn(name = "id_empresa")
 	private List<Hotel> hotel;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_cuenta")
+	@JoinColumn(name = "id_cuenta", unique=true, nullable=false)
 	private Cuenta cuenta;
 	
 	
