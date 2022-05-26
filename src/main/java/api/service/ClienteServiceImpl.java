@@ -19,7 +19,7 @@ public class ClienteServiceImpl implements IClienteService {
 	 */
 	@Override
 	public List<Cliente> listarClientes() {
-		return null;
+		return iClienteDAO.findAll();
 	}
 
 	/**
@@ -27,7 +27,7 @@ public class ClienteServiceImpl implements IClienteService {
 	 */
 	@Override
 	public Cliente getById(Long id) {
-		return null;
+		return iClienteDAO.findById(id).get();
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class ClienteServiceImpl implements IClienteService {
 	 */
 	@Override
 	public Cliente addNewCliente(Cliente cliente) {
-		return null;
+		return iClienteDAO.save(cliente);
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class ClienteServiceImpl implements IClienteService {
 	 */
 	@Override
 	public Cliente updateCliente(Cliente cliente) {
-		return null;
+		return iClienteDAO.save(cliente);
 	}
 
 	/**

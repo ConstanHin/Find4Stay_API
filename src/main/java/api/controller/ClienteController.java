@@ -24,7 +24,7 @@ public class ClienteController {
 	
 	// Get all
 	@GetMapping("/clientes")
-	public List<Cliente> getAll() {
+	public List<Cliente> listarClientes() {
 		return clienteServiceImpl.listarClientes();
 	}
 
@@ -36,7 +36,7 @@ public class ClienteController {
 
 	// Add Cliente
 	@PostMapping("/clientes")
-	public Cliente addCliente(@RequestBody Cliente cliente) {
+	public Cliente addNewCliente(@RequestBody Cliente cliente) {
 		return clienteServiceImpl.addNewCliente(cliente);
 	}
 

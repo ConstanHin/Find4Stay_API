@@ -33,7 +33,7 @@ public class ReservaController {
 	}
 	
 	@GetMapping("/reservas/{id}")
-	public Reserva Reservas_ID(@PathVariable(name="id_reservas") Long id) {
+	public Reserva Reservas_ID(@PathVariable(name="id") Long id) {
 		
 		Reserva reservas_id= new Reserva();
 		
@@ -48,14 +48,15 @@ public class ReservaController {
 		Reserva reservas_seleccionado= new Reserva();
 		Reserva reservas_actualizado= new Reserva(); 
 		
-		reservas_seleccionado= reservasServiceImpl.reservasID(id);
-		
+		reservas_seleccionado= reservasServiceImpl.reservasID(id);	
 		reservas_seleccionado.setCodigo(reserva.getCodigo());
 		reservas_seleccionado.setFecha_entrada(reserva.getFecha_entrada());
 		reservas_seleccionado.setFecha_salida(reserva.getFecha_salida());
 		reservas_seleccionado.setImporte_reserva(reserva.getImporte_reserva());
 		reservas_seleccionado.setHotel(reserva.getHotel());
 		reservas_seleccionado.setCliente(reserva.getCliente());
+		
+		reservas_actualizado = reservasServiceImpl.actualizarReservas(reservas_seleccionado);
 		
 		return reservas_actualizado;
 	}

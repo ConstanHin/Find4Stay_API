@@ -25,13 +25,13 @@ public class Hotel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "nombre")
-	private char nombre;
+	private String nombre;
 	@Column(name = "categoria")
-	private char categoria;
+	private String categoria;
 	@Column(name = "poblacion")
-	private char poblacion;
+	private String poblacion;
 	@Column(name = "ubicacion")
-	private char ubicacion;
+	private String ubicacion;
 	@Column(name = "precio")
 	private double precio;
 
@@ -58,7 +58,7 @@ public class Hotel {
 	 * @param reserva
 	 * @param empresa
 	 */
-	public Hotel(Long id, char nombre, char categoria, char poblacion, char ubicacion, double precio,
+	public Hotel(Long id, String nombre, String categoria, String poblacion, String ubicacion, double precio,
 			List<Reserva> reserva, Empresa empresa) {
 		super();
 		this.id = id;
@@ -80,35 +80,35 @@ public class Hotel {
 		this.id = id;
 	}
 
-	public char getNombre() {
+	public String getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(char nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-	public char getCategoria() {
+	public String getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(char categoria) {
+	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
 
-	public char getPoblacion() {
+	public String getPoblacion() {
 		return poblacion;
 	}
 
-	public void setPoblacion(char poblacion) {
+	public void setPoblacion(String poblacion) {
 		this.poblacion = poblacion;
 	}
 
-	public char getUbicacion() {
+	public String getUbicacion() {
 		return ubicacion;
 	}
 
-	public void setUbicacion(char ubicacion) {
+	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
 
@@ -134,9 +134,6 @@ public class Hotel {
 		return empresa;
 	}
 
-	/**
-	 * @param empresa the empresa to set
-	 */
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}

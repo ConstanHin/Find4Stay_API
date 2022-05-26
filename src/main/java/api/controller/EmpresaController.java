@@ -54,6 +54,8 @@ public class EmpresaController {
 		empresa_seleccionado.setNombre(empresas.getNombre());
 		empresa_seleccionado.setCuenta(empresas.getCuenta());
 		
+		empresa_actualizado = empresaServiceImpl.actualizarEmpresa(empresa_seleccionado);
+		
 		return empresa_actualizado;
 	}
 	

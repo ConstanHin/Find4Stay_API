@@ -1,3 +1,4 @@
+
 package api.controller;
 
 import java.util.List;
@@ -33,12 +34,11 @@ public class HotelController {
 	}
 	
 	@GetMapping("/hoteles/{id}")
-	public Hotel hotel_ID(@PathVariable(name="id_Hotel") Long id) {
+	public Hotel Hotel_ID(@PathVariable(name="id") Long id) {
 		
 		Hotel hotel_id= new Hotel();
 		
 		hotel_id=HotelServiceImpl.HotelXID(id);
-		
 		return hotel_id;
 	}
 	
@@ -56,6 +56,8 @@ public class HotelController {
 		hotel_seleccionado.setUbicacion(hotel.getUbicacion());
 		hotel_seleccionado.setPrecio(hotel.getPrecio());
 		hotel_seleccionado.setEmpresa(hotel.getEmpresa());
+		
+		hotel_actualizado = HotelServiceImpl.actualizarHotel(hotel_seleccionado);
 		
 		return hotel_actualizado;
 	}
