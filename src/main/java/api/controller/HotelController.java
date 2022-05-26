@@ -22,17 +22,17 @@ public class HotelController {
 	@Autowired
 	HotelServiceImpl HotelServiceImpl;
 	
-	@GetMapping("/Hotel")
+	@GetMapping("/hoteles")
 	public List<Hotel> listarHotel(){
 		return HotelServiceImpl.listarHotel();
 	}
 	
-	@PostMapping("/Hotel")
+	@PostMapping("/hoteles")
 	public Hotel guardarHotel(@RequestBody Hotel Hotel){
 		return HotelServiceImpl.guardarHotel(Hotel);
 	}
 	
-	@GetMapping("/Hotel/{id}")
+	@GetMapping("/hoteles/{id}")
 	public Hotel hotel_ID(@PathVariable(name="id_Hotel") Long id) {
 		
 		Hotel hotel_id= new Hotel();
@@ -42,7 +42,7 @@ public class HotelController {
 		return hotel_id;
 	}
 	
-	@PutMapping("/Hotel/{id}")
+	@PutMapping("/hoteles/{id}")
 	public Hotel actualizarHotel(@PathVariable(name="id")Long id,@RequestBody Hotel hotel) {
 		
 		Hotel hotel_seleccionado= new Hotel();
@@ -60,7 +60,7 @@ public class HotelController {
 		return hotel_actualizado;
 	}
 	
-	@DeleteMapping("/Hotel/{id}")
+	@DeleteMapping("/hoteles/{id}")
 	public void eleiminarHotel(@PathVariable(name="id")Long id) {
 		HotelServiceImpl.eliminarHotel(id);
 	}
