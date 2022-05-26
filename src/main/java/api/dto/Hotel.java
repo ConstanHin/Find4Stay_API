@@ -106,6 +106,13 @@ public class Hotel {
 	public void setId_empresa(Empresa id_empresa) {
 		this.id_empresa = id_empresa;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Hotel [id=" + id + ", nombre=" + nombre + ", categoria=" + categoria + ", poblacion=" + poblacion
+				+ ", ubicacion=" + ubicacion + ", precio=" + precio + "]";
+	}
 	
 	
 	
