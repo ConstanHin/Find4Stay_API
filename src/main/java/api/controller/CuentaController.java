@@ -60,7 +60,7 @@ public class CuentaController {
 		cuenta_seleccionado.setUsuario(cuenta.getUsuario());
 		cuenta_seleccionado.setPassword(cuenta.getPassword());
 		cuenta_seleccionado.setEmail(cuenta.getEmail());
-		cuenta_seleccionado.setTipo_rol(cuenta.getTipo_rol());
+		cuenta_seleccionado.setRol(cuenta.getRol());
 		
 		
 		
