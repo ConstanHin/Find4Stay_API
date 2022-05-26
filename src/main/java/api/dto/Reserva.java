@@ -19,7 +19,7 @@ public class Reserva {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@Column(name = "codigo")
 	private String codigo;
 	@Column(name = "fecha_entrada")
@@ -44,7 +44,7 @@ public class Reserva {
 
 	
 	//Constructor
-	public Reserva(Integer id, String codigo, Date fecha_entrada, Date fecha_salida, Integer importe_reserva) {
+	public Reserva(Long id, String codigo, Date fecha_entrada, Date fecha_salida, Integer importe_reserva) {
 		this.id = id;
 		this.codigo = codigo;
 		this.fecha_entrada = fecha_entrada;
@@ -55,12 +55,12 @@ public class Reserva {
 	
 	//Getters & Setters
 	
-	public Integer getId_reservas() {
+	public Long getId_reservas() {
 		return id;
 	}
 
 
-	public void setId_reservas(Integer id_reservas) {
+	public void setId_reservas(Long id_reservas) {
 		this.id = id_reservas;
 	}
 

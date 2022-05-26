@@ -17,7 +17,7 @@ public interface IReservaService {
 		
 		
 		//Leer
-		public Reserva reservasID(Integer id);
+		public Reserva reservasID(Long id);
 		
 		
 		//Actualizar
@@ -25,5 +25,5 @@ public interface IReservaService {
 		
 		
 		//Elimina la reserva
-		public void eliminarReservas(Integer id);
+		public void eliminarReservas(Long id);
 }

@@ -33,7 +33,7 @@ public class ReservaController {
 	}
 	
 	@GetMapping("/reservas/{id}")
-	public Reserva Reservas_ID(@PathVariable(name="id_reservas") Integer id) {
+	public Reserva Reservas_ID(@PathVariable(name="id_reservas") Long id) {
 		
 		Reserva Reservas_id= new Reserva();
 		
@@ -43,7 +43,7 @@ public class ReservaController {
 	}
 	
 	@PutMapping("/reservas/{id}")
-	public Reserva actualizarReservas(@PathVariable(name="id")Integer id,@RequestBody Reserva reservas) {
+	public Reserva actualizarReservas(@PathVariable(name="id")Long id,@RequestBody Reserva reservas) {
 		
 		Reserva Reservas_seleccionado= new Reserva();
 		Reserva Reservas_actualizado= new Reserva(); 
@@ -59,7 +59,7 @@ public class ReservaController {
 	}
 	
 	@DeleteMapping("/reservas/{id}")
-	public void eleiminarReservas(@PathVariable(name="id")Integer id) {
+	public void eleiminarReservas(@PathVariable(name="id")Long id) {
 		reservasServiceImpl.eliminarReservas(id);
 	}
 }

@@ -27,7 +27,7 @@ public class ReservaServiceImpl implements IReservaService{
 	}
 
 	@Override
-	public Reserva reservasID(Integer id) {
+	public Reserva reservasID(Long id) {
 		
 		return ireservasDAO.findById(id).get();
 	}
@@ -39,7 +39,7 @@ public class ReservaServiceImpl implements IReservaService{
 	}
 
 	@Override
-	public void eliminarReservas(Integer id) {
+	public void eliminarReservas(Long id) {
 		ireservasDAO.deleteById(id);
 		
 	}
