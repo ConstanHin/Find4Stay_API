@@ -1,7 +1,10 @@
 package api.dto;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "empresas")
@@ -32,7 +37,7 @@ public class Empresa {
 	
 	@OneToMany
 	@JoinColumn(name = "id_hotel")
-	private Hotel hotel;
+	private List<Hotel> hotel;
 	
 	
 	//Constructor Default
@@ -41,7 +46,7 @@ public class Empresa {
 	}
 	
 	//Constructor
-	public Empresa(Long id, String codigo_empresa, String nombre, Cuenta cuenta, Hotel hotel) {
+	public Empresa(Long id, String codigo_empresa, String nombre, Cuenta cuenta, List<Hotel> hotel) {
 		this.id = id;
 		this.codigo_empresa = codigo_empresa;
 		this.nombre = nombre;
@@ -84,11 +89,13 @@ public class Empresa {
 		this.cuenta = cuenta;
 	}
 
-	public Hotel getHotel() {
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hotel")
+	public List<Hotel> getHotel() {
 		return hotel;
 	}
 
-	public void setHotel(Hotel hotel) {
+	public void setHotel(List<Hotel> hotel) {
 		this.hotel = hotel;
 	}
 

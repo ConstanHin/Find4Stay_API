@@ -1,5 +1,7 @@
 package api.dto;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +36,7 @@ public class Cliente {
 	
 	@OneToMany
 	@JoinColumn(name="id_reserva")
-	private Reserva reserva;
+	private List<Reserva> reserva;
 
 	/*
 	 * Constructors
@@ -51,7 +53,7 @@ public class Cliente {
 	 * @param cuenta
 	 * @param reserva
 	 */
-	public Cliente(Long id, String nombre, String apellido, String dni, Cuenta cuenta, Reserva reserva) {
+	public Cliente(Long id, String nombre, String apellido, String dni, Cuenta cuenta, List<Reserva> reserva) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -135,14 +137,14 @@ public class Cliente {
 	 */
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "reserva")
-	public Reserva getReserva() {
+	public List<Reserva> getReserva() {
 		return reserva;
 	}
 
 	/**
 	 * @param reserva the reserva to set
 	 */
-	public void setReserva(Reserva reserva) {
+	public void setReserva(List<Reserva> reserva) {
 		this.reserva = reserva;
 	}
 
