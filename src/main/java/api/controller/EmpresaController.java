@@ -1,0 +1,65 @@
+package api.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import api.dto.Empresa;
+import api.service.EmpresaServiceImpl;
+
+@RestController
+@RequestMapping("/api")
+public class EmpresaController {
+
+	@Autowired
+	EmpresaServiceImpl empresaServiceImpl;
+	
+	@GetMapping("/empresas")
+	public List<Empresa> listarEmpresa(){
+		return empresaServiceImpl.listarEmpresa();
+	}
+	
+	@PostMapping("/empresas")
+	public Empresa guardarEmpresa(@RequestBody Empresa empresas){
+		return empresaServiceImpl.guardarReservas(empresas);
+	}
+	
+	@GetMapping("/empresas/{id}")
+	public Empresa Empresa_ID(@PathVariable(name="id") Long id) {
+		
+		Empresa empresa_id= new Empresa();
+		
+		empresa_id=empresaServiceImpl.empresaID(id);
+		
+		return empresa_id;
+	}
+	
+	@PutMapping("/empresas/{id}")
+	public Empresa actualizarEmpresa(@PathVariable(name="id")Long id,@RequestBody Empresa empresas) {
+		
+		Empresa empresa_seleccionado= new Empresa();
+		Empresa empresa_actualizado= new Empresa(); 
+		
+		empresa_seleccionado= empresaServiceImpl.empresaID(id);
+		
+		empresa_seleccionado.setCodigo_empresa(empresas.getCodigo_empresa());
+		empresa_seleccionado.setNombre(empresas.getNombre());
+		empresa_seleccionado.setCuenta(empresas.getCuenta());
+		
+		return empresa_actualizado;
+	}
+	
+	@DeleteMapping("/empresas/{id}")
+	public void eleiminarEmpresas(@PathVariable(name="id")Long id) {
+		empresaServiceImpl.eliminarEmpresa(id);
+	}
+	
+}
