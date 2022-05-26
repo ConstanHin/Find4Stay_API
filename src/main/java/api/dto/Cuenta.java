@@ -37,8 +37,8 @@ public class Cuenta {
 	@Column(name = "email")
 	private String email;
 
-	@Column(name = "tipo_rol")
-	private String tipo_rol;
+	@Column(name = "rol")
+	private String rol;
 
 	@OneToMany
 	@JoinColumn(name = "id_cuenta")
@@ -60,18 +60,18 @@ public class Cuenta {
 	 * @param usuario
 	 * @param password
 	 * @param email
-	 * @param tipo_rol
+	 * @param rol
 	 * @param cliente
 	 * @param empresas
 	 */
-	public Cuenta(Long id, String usuario, String password, String email, String tipo_rol, List<Cliente> clientes,
+	public Cuenta(Long id, String usuario, String password, String email, String rol, List<Cliente> clientes,
 			List<Empresa> empresa) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.password = password;
 		this.email = email;
-		this.tipo_rol = tipo_rol;
+		this.rol = rol;
 		this.cliente = clientes;
 		this.empresa = empresa;
 	}
@@ -109,12 +109,18 @@ public class Cuenta {
 		this.email = email;
 	}
 
-	public String getTipo_rol() {
-		return tipo_rol;
+	/**
+	 * @return the rol
+	 */
+	public String getRol() {
+		return rol;
 	}
 
-	public void setTipo_rol(String tipo_rol) {
-		this.tipo_rol = tipo_rol;
+	/**
+	 * @param rol the rol to set
+	 */
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 	/**
@@ -145,8 +151,8 @@ public class Cuenta {
 
 	@Override
 	public String toString() {
-		return "Cuenta [id=" + id + ", usuario=" + usuario + ", password=" + password + ", email=" + email
-				+ ", tipo_rol=" + tipo_rol + "]";
+		return "Cuenta [id=" + id + ", usuario=" + usuario + ", password=" + password + ", email=" + email + ", rol="
+				+ rol + "]";
 	}
 
 }
