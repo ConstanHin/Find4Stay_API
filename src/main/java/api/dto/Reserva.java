@@ -20,21 +20,25 @@ public class Reserva {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(name = "codigo")
 	private String codigo;
+	
 	@Column(name = "fecha_entrada")
 	private Date fecha_entrada;
+	
 	@Column(name = "fecha_salida")
 	private Date fecha_salida;
+	
 	@Column(name = "importe_reserva")
 	private Integer importe_reserva;
 	
 	@ManyToOne
-	@JoinColumn(name= "id_cliente")
+	@JoinColumn(name= "id_cliente", nullable = false)
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name= "id_hotel")
+	@JoinColumn(name= "id_hotel", nullable = false)
 	private Hotel hotel;
 	
 	//Constructor Default

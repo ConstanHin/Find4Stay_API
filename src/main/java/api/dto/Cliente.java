@@ -23,13 +23,13 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
+	@Column(name="nombre", nullable = false)
 	private String nombre;
 	
 	@Column
 	private String apellido;
 	
-	@Column
+	@Column (name = "dni")
 	private String dni;
 	
 	@OneToMany
@@ -37,7 +37,7 @@ public class Cliente {
 	private List<Reserva> reserva;
 	
 	@ManyToOne
-	@JoinColumn(name="id_cuenta", unique=true, nullable=false)
+	@JoinColumn(name="id_cuenta", unique=true, nullable = false)
 	private Cuenta cuenta;
 	
 

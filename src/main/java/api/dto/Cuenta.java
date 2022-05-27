@@ -29,17 +29,17 @@ public class Cuenta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "usuario")
+	@Column(name = "usuario", unique = true, nullable = false)
 	private String usuario;
 
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	private String password;
 
 //	@Email
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	private String email;
 
-	@Column(name = "rol")
+	@Column(name = "rol", nullable = false)
 	private String rol;
 
 	@OneToMany

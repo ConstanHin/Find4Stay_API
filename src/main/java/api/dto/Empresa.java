@@ -27,7 +27,7 @@ public class Empresa {
 	@Column (name = "codigo_empresa")
 	private String codigo_empresa;
 	
-	@Column (name = "nombre")
+	@Column (name = "nombre", nullable = false)
 	private String nombre;
 
 	@OneToMany

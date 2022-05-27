@@ -26,12 +26,16 @@ public class Hotel {
 	private Long id;
 	@Column(name = "nombre")
 	private String nombre;
+	
 	@Column(name = "categoria")
 	private String categoria;
+	
 	@Column(name = "poblacion")
 	private String poblacion;
+	
 	@Column(name = "ubicacion")
 	private String ubicacion;
+	
 	@Column(name = "precio")
 	private double precio;
 
@@ -40,7 +44,7 @@ public class Hotel {
 	private List<Reserva> reserva;
 
 	@ManyToOne
-	@JoinColumn(name = "id_empresa")
+	@JoinColumn(name = "id_empresa", nullable = false)
 	private Empresa empresa;
 
 	// Constructores
