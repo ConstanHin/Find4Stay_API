@@ -32,8 +32,8 @@ public class Cuenta {
 	@Column(name = "usuario", unique = true, nullable = false)
 	private String usuario;
 
-	@Column(name = "password", nullable = false)
-	private String password;
+	@Column(name = "contrasenya", nullable = false)
+	private String contrasenya;
 
 //	@Email
 	@Column(name = "email", unique = true, nullable = false)
@@ -60,18 +60,18 @@ public class Cuenta {
 	/**
 	 * @param id
 	 * @param usuario
-	 * @param password
+	 * @param contrasenya
 	 * @param email
 	 * @param rol
 	 * @param cliente
 	 * @param empresas
 	 */
-	public Cuenta(Long id, String usuario, String password, String email, String rol, List<Cliente> clientes,
+	public Cuenta(Long id, String usuario, String contrasenya, String email, String rol, List<Cliente> clientes,
 			List<Empresa> empresa) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
-		this.password = password;
+		this.contrasenya = contrasenya;
 		this.email = email;
 		this.rol = rol;
 		this.cliente = clientes;
@@ -96,11 +96,11 @@ public class Cuenta {
 	}
 
 	public String getPassword() {
-		return password;
+		return contrasenya;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String contrasenya) {
+		this.contrasenya = contrasenya;
 	}
 
 	public String getEmail() {
@@ -153,7 +153,7 @@ public class Cuenta {
 
 	@Override
 	public String toString() {
-		return "Cuenta [id=" + id + ", usuario=" + usuario + ", password=" + password + ", email=" + email + ", rol="
+		return "Cuenta [id=" + id + ", usuario=" + usuario + ", contrasenya=" + contrasenya + ", email=" + email + ", rol="
 				+ rol + "]";
 	}
 
