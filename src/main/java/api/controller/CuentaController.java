@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import api.dto.Cuenta;
 import api.service.CuentaServiceImpl;
 
-
-
 @RestController
 @RequestMapping("/api")
 public class CuentaController {
@@ -24,6 +23,19 @@ public class CuentaController {
 	@Autowired
 	CuentaServiceImpl cuentaServiceImpl;
 	
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	
+	
+	/**
+	 * @param cuentaServiceImpl
+	 * @param bCryptPasswordEncoder
+	 */
+	public CuentaController(CuentaServiceImpl cuentaServiceImpl, BCryptPasswordEncoder bCryptPasswordEncoder) {
+		this.cuentaServiceImpl = cuentaServiceImpl;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
+
 	/**
 	 * Get All
 	 */
@@ -39,8 +51,9 @@ public class CuentaController {
 	 */
 	@PostMapping("/cuentas")
 	public Cuenta salvarCuenta(@RequestBody Cuenta cuenta) {
-		
-		return cuentaServiceImpl.guardarCuenta(cuenta);
+		cuenta.setPassword(bCryptPasswordEncoder.encode(cuenta.getPassword()));
+		cuentaServiceImpl.guardarCuenta(cuenta);
+		return cuenta;
 	}
 	
 	/**
@@ -54,8 +67,6 @@ public class CuentaController {
 		Cuenta cuenta_xid= new Cuenta();
 		
 		cuenta_xid=cuentaServiceImpl.cuentasXID(id);
-		
-		//System.out.println("Cuenta XID: "+ Cuenta_xid);
 		
 		return cuenta_xid;
 	}
@@ -74,10 +85,10 @@ public class CuentaController {
 		
 		cuenta_seleccionado= cuentaServiceImpl.cuentasXID(id);
 		
-		cuenta_seleccionado.setUsuario(cuenta.getUsuario());
+		cuenta_seleccionado.setUsername(cuenta.getUsername());
 		cuenta_seleccionado.setPassword(cuenta.getPassword());
 		cuenta_seleccionado.setEmail(cuenta.getEmail());
-		cuenta_seleccionado.setRol(cuenta.getRol());
+		cuenta_seleccionado.setRole(cuenta.getRole());
 		
 		
 		

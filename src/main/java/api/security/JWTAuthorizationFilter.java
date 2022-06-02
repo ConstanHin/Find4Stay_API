@@ -30,11 +30,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import api.controllers.UsuarioController;
-import api.dao.IUsuarioDAO;
-import api.dto.GrantedAuthorityCon;
-import api.dto.Usuario;
-import api.service.UsuarioDetailsServiceImpl;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import io.jsonwebtoken.Claims;

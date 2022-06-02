@@ -1,5 +1,7 @@
 package api.dto;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,24 +16,29 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 //import javax.validation.constraints.Email;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * @author Aida Queralt
+ * @author Aida Queralt <3, Constantin Vlad, Gerard Vinuela, Gerard Sanchez
  *
  */
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "cuentas")
-public class Cuenta {
+public class Cuenta implements UserDetails {
 
 	// Atributos de la tabla cuenta
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "usuario", unique = true, nullable = false)
-	private String usuario;
+	@Column(name = "username", unique = true, nullable = false)
+	private String username;
 
 	@Column(name = "password", nullable = false)
 	private String password;
@@ -40,7 +47,7 @@ public class Cuenta {
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
-	@Column(name = "role", nullable = false)
+	@Column(name = "role")
 	private String role;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
@@ -60,23 +67,51 @@ public class Cuenta {
 
 	/**
 	 * @param id
-	 * @param usuario
+	 * @param username
 	 * @param password
 	 * @param email
 	 * @param role
 	 * @param cliente
 	 * @param empresas
 	 */
-	public Cuenta(Long id, String usuario, String password, String email, String role, List<Cliente> clientes,
+	public Cuenta(Long id, String username, String password, String email, String role, List<Cliente> clientes,
 			List<Empresa> empresa) {
-		super();
 		this.id = id;
-		this.usuario = usuario;
+		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
 		this.cliente = clientes;
 		this.empresa = empresa;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+		authorities.add(new SimpleGrantedAuthority(role));
+
+		return authorities;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 	// Getters & Setters
@@ -88,12 +123,13 @@ public class Cuenta {
 		this.id = id;
 	}
 
-	public String getUsuario() {
-		return usuario;
+	@Override
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -111,21 +147,21 @@ public class Cuenta {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 	/**
 	 * @return the role
 	 */
-	public String getRol() {
+	public String getRole() {
 		return role;
 	}
 
 	/**
 	 * @param role the role to set
 	 */
-	public void setRol(String role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
-
+	
 	/**
 	 * @return the cliente
 	 */
@@ -154,8 +190,11 @@ public class Cuenta {
 
 	@Override
 	public String toString() {
-		return "Cuenta [id=" + id + ", usuario=" + usuario + ", password=" + password + ", email=" + email + ", role="
+		return "Cuenta [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", role="
 				+ role + "]";
 	}
+
+
+	
 
 }
