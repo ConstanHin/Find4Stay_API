@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class CuentaController {
 	/**
 	 * Get All
 	 */
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/cuentas")
 	public List<Cuenta> listarCcursos(){
 		return cuentaServiceImpl.listarCuenta();
