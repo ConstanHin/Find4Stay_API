@@ -21,48 +21,55 @@ public class ReservaController {
 
 	@Autowired
 	ReservaServiceImpl reservasServiceImpl;
-	
+
 	@GetMapping("/reservas")
-	public List<Reserva> listarReservas(){
+	public List<Reserva> listarReservas() {
 		return reservasServiceImpl.listarReservas();
 	}
-	
+
 	@PostMapping("/reservas")
-	public Reserva guardarReservas(@RequestBody Reserva reservas){
+	public Reserva guardarReservas(@RequestBody Reserva reservas) throws Exception {
+
+		// que no sea null el cliente y el hotel
+		if (reservas.getCliente() == null || reservas.getHotel() == null) {
+			throw new Exception("La reserva debe tener un cliente y un hotel");
+		}
+
 		return reservasServiceImpl.guardarReservas(reservas);
+
 	}
-	
+
 	@GetMapping("/reservas/{id}")
-	public Reserva Reservas_ID(@PathVariable(name="id") Long id) {
-		
-		Reserva reservas_id= new Reserva();
-		
-		reservas_id=reservasServiceImpl.reservasID(id);
-		
+	public Reserva Reservas_ID(@PathVariable(name = "id") Long id) {
+
+		Reserva reservas_id = new Reserva();
+
+		reservas_id = reservasServiceImpl.reservasID(id);
+
 		return reservas_id;
 	}
-	
+
 	@PutMapping("/reservas/{id}")
-	public Reserva actualizarReservas(@PathVariable(name="id")Long id,@RequestBody Reserva reserva) {
-		
-		Reserva reservas_seleccionado= new Reserva();
-		Reserva reservas_actualizado= new Reserva(); 
-		
-		reservas_seleccionado= reservasServiceImpl.reservasID(id);	
+	public Reserva actualizarReservas(@PathVariable(name = "id") Long id, @RequestBody Reserva reserva) {
+
+		Reserva reservas_seleccionado = new Reserva();
+		Reserva reservas_actualizado = new Reserva();
+
+		reservas_seleccionado = reservasServiceImpl.reservasID(id);
 		reservas_seleccionado.setCodigo(reserva.getCodigo());
 		reservas_seleccionado.setFecha_entrada(reserva.getFecha_entrada());
 		reservas_seleccionado.setFecha_salida(reserva.getFecha_salida());
 		reservas_seleccionado.setImporte_reserva(reserva.getImporte_reserva());
 		reservas_seleccionado.setHotel(reserva.getHotel());
 		reservas_seleccionado.setCliente(reserva.getCliente());
-		
+
 		reservas_actualizado = reservasServiceImpl.actualizarReservas(reservas_seleccionado);
-		
+
 		return reservas_actualizado;
 	}
-	
+
 	@DeleteMapping("/reservas/{id}")
-	public void eleiminarReservas(@PathVariable(name="id")Long id) {
+	public void eleiminarReservas(@PathVariable(name = "id") Long id) {
 		reservasServiceImpl.eliminarReservas(id);
 	}
 }

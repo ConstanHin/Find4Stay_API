@@ -1,8 +1,8 @@
-INSERT INTO cuentas (email, contraseña, rol, usuario) VALUES ('virgo09@gmail.com', '123456', 'rol_cliente' ,'Virgo09');
-INSERT INTO cuentas (email, contraseña, rol, usuario) VALUES ('mariawater@gmail.com', 'watermelon', 'rol_cliente', 'MariaPoMo');
-INSERT INTO cuentas (email, contraseña, rol, usuario) VALUES ('torrezno34@gmail.com', 'aguacate47', 'rol_cliente', 'Torrezno34');
-INSERT INTO cuentas (email, contraseña, rol, usuario) VALUES ('HotelNH@gmail.com', 'nhreus', 'rol_empresa', 'HotelNH');
-INSERT INTO cuentas (email, contraseña, rol, usuario) VALUES ('hotelgaudi@gmail.com', 'hotelgaudi', 'rol_empresa', 'HotelGaudi');
+INSERT INTO cuentas (email, password, role, usuario) VALUES ('virgo09@gmail.com', '123456', 'role_cliente' ,'Virgo09');
+INSERT INTO cuentas (email, password, role, usuario) VALUES ('mariawater@gmail.com', 'watermelon', 'role_cliente', 'MariaPoMo');
+INSERT INTO cuentas (email, password, role, usuario) VALUES ('torrezno34@gmail.com', 'aguacate47', 'role_cliente', 'Torrezno34');
+INSERT INTO cuentas (email, password, role, usuario) VALUES ('HotelNH@gmail.com', 'nhreus', 'role_empresa', 'HotelNH');
+INSERT INTO cuentas (email, password, role, usuario) VALUES ('hotelgaudi@gmail.com', 'hotelgaudi', 'role_empresa', 'HotelGaudi');
 
 
 INSERT INTO reservas (codigo, fecha_entrada, fecha_salida, importe_reserva, id_cliente, id_hotel) VALUES ('10A', '2022-02-02', '2022-02-04', 170, 1, 2);

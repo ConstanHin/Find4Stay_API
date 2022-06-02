@@ -2,6 +2,7 @@ package api.dto;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +31,7 @@ public class Empresa {
 	@Column (name = "nombre", nullable = false)
 	private String nombre;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_empresa")
 	private List<Hotel> hotel;
 	

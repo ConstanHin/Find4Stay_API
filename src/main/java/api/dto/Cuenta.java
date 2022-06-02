@@ -2,6 +2,7 @@ package api.dto;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,21 +33,21 @@ public class Cuenta {
 	@Column(name = "usuario", unique = true, nullable = false)
 	private String usuario;
 
-	@Column(name = "contrasenya", nullable = false)
-	private String contrasenya;
+	@Column(name = "password", nullable = false)
+	private String password;
 
 //	@Email
 	@Column(name = "email", unique = true, nullable = false)
 	private String email;
 
-	@Column(name = "rol", nullable = false)
-	private String rol;
+	@Column(name = "role", nullable = false)
+	private String role;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_cuenta")
 	private List<Cliente> cliente;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "id_cuenta")
 	private List<Empresa> empresa;
 
@@ -60,20 +61,20 @@ public class Cuenta {
 	/**
 	 * @param id
 	 * @param usuario
-	 * @param contrasenya
+	 * @param password
 	 * @param email
-	 * @param rol
+	 * @param role
 	 * @param cliente
 	 * @param empresas
 	 */
-	public Cuenta(Long id, String usuario, String contrasenya, String email, String rol, List<Cliente> clientes,
+	public Cuenta(Long id, String usuario, String password, String email, String role, List<Cliente> clientes,
 			List<Empresa> empresa) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
-		this.contrasenya = contrasenya;
+		this.password = password;
 		this.email = email;
-		this.rol = rol;
+		this.role = role;
 		this.cliente = clientes;
 		this.empresa = empresa;
 	}
@@ -96,11 +97,11 @@ public class Cuenta {
 	}
 
 	public String getPassword() {
-		return contrasenya;
+		return password;
 	}
 
-	public void setPassword(String contrasenya) {
-		this.contrasenya = contrasenya;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -112,17 +113,17 @@ public class Cuenta {
 	}
 
 	/**
-	 * @return the rol
+	 * @return the role
 	 */
 	public String getRol() {
-		return rol;
+		return role;
 	}
 
 	/**
-	 * @param rol the rol to set
+	 * @param role the role to set
 	 */
-	public void setRol(String rol) {
-		this.rol = rol;
+	public void setRol(String role) {
+		this.role = role;
 	}
 
 	/**
@@ -153,8 +154,8 @@ public class Cuenta {
 
 	@Override
 	public String toString() {
-		return "Cuenta [id=" + id + ", usuario=" + usuario + ", contrasenya=" + contrasenya + ", email=" + email + ", rol="
-				+ rol + "]";
+		return "Cuenta [id=" + id + ", usuario=" + usuario + ", password=" + password + ", email=" + email + ", role="
+				+ role + "]";
 	}
 
 }

@@ -34,11 +34,11 @@ public class Reserva {
 	private Integer importe_reserva;
 	
 	@ManyToOne
-	@JoinColumn(name= "id_cliente", nullable = false)
+	@JoinColumn(name= "id_cliente")
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name= "id_hotel", nullable = false)
+	@JoinColumn(name= "id_hotel")
 	private Hotel hotel;
 	
 	//Constructor Default
