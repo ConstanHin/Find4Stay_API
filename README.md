@@ -42,3 +42,9 @@ De este modo en el archivo "HotelController.java":
 	}
   
 ~~~~
+
+Para añadir mas de un rol a un endpoin se haría del siguiente modo:
+
+~~~~
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_CLIENTE')")
+~~~~
