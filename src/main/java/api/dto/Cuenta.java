@@ -21,6 +21,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import api.enumerables.RolesEnum;
 
 /**
  * @author Aida Queralt <3, Constantin Vlad, Gerard Vinuela, Gerard Sanchez
@@ -157,9 +158,12 @@ public class Cuenta implements UserDetails {
 
 	/**
 	 * @param role the role to set
+	 * @throws Exception 
 	 */
 	public void setRole(String role) {
-		this.role = role;
+		
+			RolesEnum rolesEnum = RolesEnum.getRoleEnum(role);
+			this.role = RolesEnum.getRole(rolesEnum);
 	}
 	
 	/**

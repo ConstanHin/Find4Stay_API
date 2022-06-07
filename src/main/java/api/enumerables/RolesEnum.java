@@ -1,30 +1,39 @@
 package api.enumerables;
 
-public enum RolesEnum {
-	  ADMIN("admin"),
-	  CLIENTE("cliente"),
-	  EMPRESA("empresa");
+ public enum RolesEnum {
+	  ADMIN,
+	  CLIENTE,
+	  EMPRESA;
 
-	private String valor;
-
-	// Constructor
-	private RolesEnum(String valor) {
-		this.valor = valor;
-	}
 	
-	// Getters setters
 	/**
 	 * @return the valor
 	 */
-	public String getValor() {
-		return valor;
+	public static String getRole(RolesEnum rol) {
+		
+		switch (rol) {
+		case ADMIN:
+			return "ROLE_ADMIN";
+		case CLIENTE:
+			return "ROLE_CLIENTE";
+		case EMPRESA:
+			return "ROLE_EMPRESA";
+		}
+		throw new Error("-Role not available in RolesEnum!");
+	}
+	public static RolesEnum getRoleEnum(String rol) {
+		
+		switch (rol) {
+		case "ROLE_ADMIN":
+			return ADMIN;
+		case "ROLE_CLIENTE":
+			return CLIENTE;
+		case "ROLE_EMPRESA":
+			return EMPRESA;
+		}
+		throw new Error("-Role not available in RolesEnum!");
 	}
 
-	/**
-	 * @param valor the valor to set
-	 */
-	public void setValor(String valor) {
-		this.valor = valor;
-	}
+
 
 }

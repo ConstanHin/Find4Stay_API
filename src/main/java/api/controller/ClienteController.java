@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.dto.Cliente;
+import api.dto.Cuenta;
 import api.service.ClienteServiceImpl;
 
 @RestController
@@ -21,6 +22,10 @@ public class ClienteController {
 	
 	@Autowired
 	ClienteServiceImpl clienteServiceImpl;
+	
+	@Autowired
+	CuentaController cuentaController;
+	
 	
 	// Get all
 	@GetMapping("/clientes")
@@ -34,9 +39,20 @@ public class ClienteController {
 		return clienteServiceImpl.getById(id);
 	}
 
+	// Para crear un cliente se necesita crear primero una cuenta
+	// Se le pasa el objeto cuenta por body
 	// Add Cliente
 	@PostMapping("/clientes")
-	public Cliente addNewCliente(@RequestBody Cliente cliente) {
+	public Cliente addNewCliente(@RequestBody Cuenta cuenta) {
+		
+		// Crear primero la cuenta a la que está relacionada
+		cuentaController.salvarCuenta(cuenta);
+		
+		// Crear cliente
+		Cliente cliente = new Cliente();
+		cliente.setNombre(cuenta.getUsername());
+		cliente.setCuenta(cuenta);
+		
 		return clienteServiceImpl.addNewCliente(cliente);
 	}
 
