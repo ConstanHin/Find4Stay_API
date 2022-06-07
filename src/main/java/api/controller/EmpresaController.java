@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.dto.Cliente;
+import api.dto.Cuenta;
 import api.dto.Empresa;
 import api.service.EmpresaServiceImpl;
 
@@ -25,6 +27,9 @@ public class EmpresaController {
 
 	@Autowired
 	EmpresaServiceImpl empresaServiceImpl;
+	
+	@Autowired
+	CuentaController cuentaController;
 	
 	@GetMapping("/empresas")
 	public List<Empresa> listarEmpresa(){
@@ -36,8 +41,17 @@ public class EmpresaController {
 	}
 	
 	@PostMapping("/empresas")
-	public Empresa guardarEmpresa(@RequestBody Empresa empresas){
-		return empresaServiceImpl.guardarReservas(empresas);
+	public Empresa guardarEmpresa(@RequestBody Cuenta cuenta){
+		
+		// Crear primero la cuenta a la que está relacionada
+		cuentaController.salvarCuenta(cuenta);
+		
+		// Crear empresa
+		Empresa empresa = new Empresa();
+		empresa.setNombre(cuenta.getUsername());
+		empresa.setCuenta(cuenta);
+		
+		return empresaServiceImpl.guardarEmpresa(empresa);
 	}
 	
 	@GetMapping("/empresas/{id}")

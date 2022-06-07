@@ -12,7 +12,7 @@ public interface IEmpresaService {
 	public List<Empresa> listarEmpresa();
 
 	// Guardar
-	public Empresa guardarReservas(Empresa empresa);
+	public Empresa guardarEmpresa(Empresa empresa);
 
 	// Leer
 	public Empresa empresaID(Long id);
