@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,8 @@ public class ReservaController {
 
 	@Autowired
 	ReservaServiceImpl reservasServiceImpl;
-
+	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/reservas")
 	public List<Reserva> listarReservas() {
 		return reservasServiceImpl.listarReservas();
@@ -38,7 +40,7 @@ public class ReservaController {
 		return reservasServiceImpl.guardarReservas(reservas);
 
 	}
-
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/reservas/{id}")
 	public Reserva Reservas_ID(@PathVariable(name = "id") Long id) {
 
@@ -69,7 +71,7 @@ public class ReservaController {
 	}
 
 	@DeleteMapping("/reservas/{id}")
-	public void eleiminarReservas(@PathVariable(name = "id") Long id) {
+	public void eliminarReservas(@PathVariable(name = "id") Long id) {
 		reservasServiceImpl.eliminarReservas(id);
 	}
 }
