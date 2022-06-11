@@ -30,6 +30,7 @@ public class CuentaController {
 	
 	
 	/**
+	 * Constructor
 	 * @param cuentaServiceImpl
 	 * @param bCryptPasswordEncoder
 	 */
@@ -39,7 +40,7 @@ public class CuentaController {
 	}
 
 	/**
-	 * Get All
+	 * Get All Cuentas
 	 */
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/cuentas")
@@ -48,7 +49,7 @@ public class CuentaController {
 	}
 	
 	/**
-	 * Crear nuevo
+	 * Crear nueva cuenta
 	 * @param cuenta
 	 * @return
 	 */
@@ -111,6 +112,14 @@ public class CuentaController {
 	public void eliminarCuenta(@PathVariable(name="id")Long id) {
 		cuentaServiceImpl.eliminarCuenta(id);
 	}
+	
+	
+	/**
+	 * Return cuenta by username
+	 */
+//	public void cuentaByUsername() {
+//		cuentaServiceImpl.
+//	}
 	
 
 }

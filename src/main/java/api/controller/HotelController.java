@@ -53,6 +53,8 @@ public class HotelController {
 		
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         
+        // hoteles where empresa id es la authenticated
+        
         System.out.println(authentication);
 
 		return null;
