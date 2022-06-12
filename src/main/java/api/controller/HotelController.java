@@ -1,14 +1,10 @@
 
 package api.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,7 +21,6 @@ import api.dto.Cuenta;
 import api.dto.Hotel;
 import api.service.CuentaServiceImpl;
 import api.service.HotelServiceImpl;
-import api.service.IHotelService;
 
 @RestController
 @RequestMapping("/api")
