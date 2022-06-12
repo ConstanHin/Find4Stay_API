@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 //import javax.validation.constraints.Email;
 
@@ -51,13 +52,13 @@ public class Cuenta implements UserDetails {
 	@Column(name = "role")
 	private String role;
 
-	@OneToMany(cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "id_cuenta")
-	private List<Cliente> cliente;
+//	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToOne(mappedBy = "cuenta", fetch = FetchType.LAZY)
+	private Cliente cliente;
 
-	@OneToMany(cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "id_cuenta")
-	private List<Empresa> empresa;
+//	@OneToMany(cascade = CascadeType.REMOVE)
+	@OneToOne(mappedBy = "cuenta", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private Empresa empresa;
 
 	// Contructor por defecto
 	public Cuenta() {
@@ -75,15 +76,17 @@ public class Cuenta implements UserDetails {
 	 * @param cliente
 	 * @param empresas
 	 */
-	public Cuenta(Long id, String username, String password, String email, String role, List<Cliente> clientes,
-			List<Empresa> empresa) {
+	public Cuenta(Long id, String username, String password, String email, String role, 
+//			Empresa empresa,
+			Cliente cliente
+			) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.role = role;
-		this.cliente = clientes;
-		this.empresa = empresa;
+		this.cliente = cliente;
+//		this.empresa = empresa;
 	}
 
 	@Override
@@ -169,36 +172,31 @@ public class Cuenta implements UserDetails {
 	/**
 	 * @return the cliente
 	 */
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
-	public List<Cliente> getCliente() {
+//	@JsonIgnore
+	public Cliente getCliente() {
 		return cliente;
 	}
 
 	/**
 	 * @param cliente the cliente to set
 	 */
-	public void setCliente(List<Cliente> cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empresa")
-	public List<Empresa> getEmpresa() {
+//	@JsonIgnore
+	public Empresa getEmpresa() {
 		return empresa;
 	}
 
-	public void setEmpresa(List<Empresa> empresa) {
+	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 	}
 
 	@Override
 	public String toString() {
 		return "Cuenta [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email + ", role="
-				+ role + "]";
-	}
-
-
-	
+				+ role + ", cliente=" + cliente + ", empresa=" + empresa + "]";
+	}	
 
 }

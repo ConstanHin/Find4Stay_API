@@ -117,9 +117,9 @@ public class CuentaController {
 	/**
 	 * Return cuenta by username
 	 */
-//	public void cuentaByUsername() {
+	public void cuentaByUsername() {
 //		cuentaServiceImpl.
-//	}
+	}
 	
 
 }

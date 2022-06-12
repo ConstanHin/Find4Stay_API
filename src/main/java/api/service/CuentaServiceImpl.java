@@ -55,5 +55,10 @@ public class CuentaServiceImpl implements ICuentaService, UserDetailsService{
 		return new User(cuenta.getUsername(), cuenta.getPassword(), cuenta.getAuthorities());
 	}
 
+	@Override
+	public Cuenta getCuentaByUsername(String username) {
+		return iCuentaDAO.findByUsername(username);
+	}
+
 
 }

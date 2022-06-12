@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -35,8 +36,8 @@ public class Empresa {
 	@JoinColumn(name = "id_empresa")
 	private List<Hotel> hotel;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_cuenta", unique=true, nullable=false)
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "id_cuenta", referencedColumnName = "id", unique=true, nullable=false)
 	private Cuenta cuenta;
 	
 	
@@ -82,6 +83,8 @@ public class Empresa {
 		this.nombre = nombre;
 	}
 
+	@JsonIgnore
+//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "cuenta")
 	public Cuenta getCuenta() {
 		return cuenta;
 	}
@@ -90,7 +93,7 @@ public class Empresa {
 		this.cuenta = cuenta;
 	}
 
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hotel")
 	public List<Hotel> getHotel() {
 		return hotel;

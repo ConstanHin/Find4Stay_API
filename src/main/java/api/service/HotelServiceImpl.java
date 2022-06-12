@@ -36,7 +36,11 @@ public class HotelServiceImpl implements IHotelService {
 
 	@Override
 	public void eliminarHotel(Long id) {
-		iHotelDAO.deleteById(id);;
+		iHotelDAO.deleteById(id);
+	}
+	
+	public List<Hotel> getHotelesByEmpresaId(Integer empresaId) {
+		return iHotelDAO.findHotelByEmpresaID(empresaId);
 	}
 
 }

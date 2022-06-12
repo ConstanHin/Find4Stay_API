@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -36,8 +37,8 @@ public class Cliente {
 	@JoinColumn(name="id_cliente")
 	private List<Reserva> reserva;
 	
-	@ManyToOne
-	@JoinColumn(name="id_cuenta", unique=true, nullable = false)
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name="id_cuenta", referencedColumnName = "id", unique=true, nullable = false)
 	private Cuenta cuenta;
 	
 
@@ -124,6 +125,8 @@ public class Cliente {
 	/**
 	 * @return the cuenta
 	 */
+	@JsonIgnore
+//	@OneToOne(fetch = FetchType.LAZY, mappedBy = "cuentas")
 	public Cuenta getCuenta() {
 		return cuenta;
 	}
