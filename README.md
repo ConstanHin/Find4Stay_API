@@ -48,3 +48,12 @@ Para añadir mas de un rol a un endpoin se haría del siguiente modo:
 ~~~~
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_CLIENTE')")
 ~~~~
+
+Teoria - Empresa buscar sus propios hoteles
+
+![image](https://user-images.githubusercontent.com/67373492/171840726-21d900dd-1ec8-442c-b73b-b35145ff292a.png)
+
+## Endpoints
+
+### GET - "/api/hoteles/empresa"  
+Devuelve los **hoteles de la empresa autenticada**. Accesible solo con una cuenta con **ROLE_EMPRESA**.
