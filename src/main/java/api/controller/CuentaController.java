@@ -44,7 +44,7 @@ public class CuentaController {
 	 */
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/cuentas")
-	public List<Cuenta> listarCcursos(){
+	public List<Cuenta> listarCuentas(){
 		return cuentaServiceImpl.listarCuenta();
 	}
 	
@@ -66,6 +66,7 @@ public class CuentaController {
 	 * @param id
 	 * @return
 	 */
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/cuentas/{id}")
 	public Cuenta CuentaXID(@PathVariable(name="id") Long id) {
 		

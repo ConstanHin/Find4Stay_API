@@ -4,6 +4,9 @@ package api.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,7 +47,8 @@ public class HotelController {
 	public Hotel guardarHotel(@RequestBody Hotel Hotel) {
 		return hotelServiceImp.guardarHotel(Hotel);
 	}
-
+	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/hoteles/{id}")
 	public Hotel Hotel_ID(@PathVariable(name = "id") Long id) {
 

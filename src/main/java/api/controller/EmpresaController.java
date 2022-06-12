@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,7 @@ public class EmpresaController {
 	@Autowired
 	CuentaController cuentaController;
 	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/empresas")
 	public List<Empresa> listarEmpresa(){
 //		Recogiendo los principal authenticado
@@ -54,6 +56,7 @@ public class EmpresaController {
 		return empresaServiceImpl.guardarEmpresa(empresa);
 	}
 	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/empresas/{id}")
 	public Empresa Empresa_ID(@PathVariable(name="id") Long id) {
 		
@@ -82,12 +85,12 @@ public class EmpresaController {
 	}
 	
 	@DeleteMapping("/empresas/{id}")
-	public void eleiminarEmpresas(@PathVariable(name="id")Long id) {
+	public void eliminarEmpresas(@PathVariable(name="id")Long id) {
 		empresaServiceImpl.eliminarEmpresa(id);
 	}
 	
 	/**
-	 * Metodo que devuelve los hoteles de la empresa autenticada
+	 * Método que devuelve los hoteles de la empresa autentificada
 	 */
 	
 }
