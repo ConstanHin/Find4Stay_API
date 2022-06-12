@@ -49,7 +49,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
 //			.antMatchers(HttpMethod.GET, "/api/investigadores").hasAuthority("ROLE_ADMIN")
-			.anyRequest().authenticated()
+//			.anyRequest().authenticated()
+			.anyRequest().hasAuthority("ROLE_ADMIN")
 			.and()
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
 				.addFilter(new JWTAuthorizationFilter(authenticationManager()));

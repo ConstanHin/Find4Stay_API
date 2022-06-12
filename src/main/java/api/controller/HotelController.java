@@ -3,8 +3,12 @@ package api.controller;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.dto.Empresa;
 import api.dto.Hotel;
 import api.service.HotelServiceImpl;
 
@@ -35,6 +40,7 @@ public class HotelController {
 		return HotelServiceImpl.guardarHotel(Hotel);
 	}
 	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/hoteles/{id}")
 	public Hotel Hotel_ID(@PathVariable(name="id") Long id) {
 		
@@ -65,7 +71,13 @@ public class HotelController {
 	}
 	
 	@DeleteMapping("/hoteles/{id}")
-	public void eleiminarHotel(@PathVariable(name="id")Long id) {
+	public void eliminarHotel(@PathVariable(name="id")Long id) {
 		HotelServiceImpl.eliminarHotel(id);
+	}
+	
+	
+	public void getHotelesPorEmpresa() {
+		
+		
 	}
 }
