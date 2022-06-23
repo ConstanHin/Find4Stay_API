@@ -53,7 +53,7 @@ public class Cuenta implements UserDetails {
 	private Cliente cliente;
 
 //	@OneToMany(cascade = CascadeType.REMOVE)
-	@OneToOne(mappedBy = "cuenta", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToOne(mappedBy = "cuenta", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Empresa empresa;
 
 	// Contructor por defecto
@@ -89,7 +89,15 @@ public class Cuenta implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-		authorities.add(new SimpleGrantedAuthority(role));
+		try {
+			if(role == null) {
+				setRole("ROLE_CLIENTE");
+			}
+			authorities.add(new SimpleGrantedAuthority(role));
+			
+		} catch (Exception e) {
+			throw new Error("getAuthorities() in Cuenta.java error");
+		}
 
 		return authorities;
 	}

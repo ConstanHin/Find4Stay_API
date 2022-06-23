@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.dto.Cuenta;
 import api.dto.Empresa;
+import api.models.CuentaEmpresa;
 import api.service.EmpresaServiceImpl;
 
 @RestController
@@ -38,14 +39,21 @@ public class EmpresaController {
 	}
 	
 	@PostMapping("/empresas")
-	public Empresa guardarEmpresa(@RequestBody Cuenta cuenta){
+	public Empresa guardarEmpresa(@RequestBody CuentaEmpresa cuentaEmpresa){
+		
+		Cuenta cuenta = new Cuenta();
+		cuenta.setUsername(cuentaEmpresa.getUsername());
+		cuenta.setPassword(cuentaEmpresa.getPassword());
+		cuenta.setEmail(cuentaEmpresa.getEmail());
+		cuenta.setRole("ROLE_EMPRESA");
 		
 		// Crear primero la cuenta a la que está relacionada
 		cuentaController.salvarCuenta(cuenta);
 		
 		// Crear empresa
 		Empresa empresa = new Empresa();
-		empresa.setNombre(cuenta.getUsername());
+		empresa.setNombre(cuentaEmpresa.getNombre());
+		empresa.setCodigo_empresa(cuentaEmpresa.getCodigo_empresa());
 		empresa.setCuenta(cuenta);
 		
 		return empresaServiceImpl.guardarEmpresa(empresa);

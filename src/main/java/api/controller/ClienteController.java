@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.dto.Cliente;
 import api.dto.Cuenta;
+import api.models.CuentaCliente;
 import api.service.ClienteServiceImpl;
 
 @RestController
@@ -43,14 +44,22 @@ public class ClienteController {
 	// Se le pasa el objeto cuenta por body
 	// Add Cliente
 	@PostMapping("/clientes")
-	public Cliente addNewCliente(@RequestBody Cuenta cuenta) {
+	public Cliente addNewCliente(@RequestBody CuentaCliente cuentaCliente) {
+		
+		Cuenta cuenta = new Cuenta();
+		cuenta.setUsername(cuentaCliente.getUsername());
+		cuenta.setPassword(cuentaCliente.getPassword());
+		cuenta.setEmail(cuentaCliente.getEmail());
+		cuenta.setRole("ROLE_CLIENTE");
 		
 		// Crear primero la cuenta a la que está relacionada
 		cuentaController.salvarCuenta(cuenta);
 		
 		// Crear cliente
 		Cliente cliente = new Cliente();
-		cliente.setNombre(cuenta.getUsername());
+		cliente.setNombre(cuentaCliente.getUsername());
+		cliente.setApellido(cuentaCliente.getApellido());
+		cliente.setDni(cuentaCliente.getDni());
 		cliente.setCuenta(cuenta);
 		
 		return clienteServiceImpl.addNewCliente(cliente);
