@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,6 +122,21 @@ public class CuentaController {
 	 */
 	public void cuentaByUsername() {
 //		cuentaServiceImpl.
+	}
+	
+	/**
+	 * Return cuenta by authenticated
+	 */
+	@GetMapping("/cuenta/auth")
+	public Object cuentaAuthenticated() {
+		
+		// Obtenemos authenticated
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		// Obtenemos la cuenta a partir del nombre de la cuenta authenticated
+		Cuenta cuenta = cuentaServiceImpl.getCuentaByUsername(authentication.getName());
+		
+		return cuenta;
 	}
 	
 
