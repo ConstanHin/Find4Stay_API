@@ -15,5 +15,9 @@ public List<Cuenta> listarCuenta(); //Listar All
 	public Cuenta actualizarCuenta(Cuenta cuentas); //Actualiza datos del cuentas UPDATE
 	
 	public void eliminarCuenta(Long id);// Elimina el cuentas DELETE
+	
+	// Cuenta por username
+	
+	public Cuenta getCuentaByUsername(String username);
 
 }

@@ -48,20 +48,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
-		
+		String comillas = "\"";
+
 		// Generate token
 		String token = Jwts.builder().setIssuedAt(new Date()).setIssuer(ISSUER_INFO)
 				.setSubject(((User)auth.getPrincipal()).getUsername())
 				.claim("roles", auth.getAuthorities().iterator().next().getAuthority())
 				.setExpiration(new Date(System.currentTimeMillis() + TOKEN_EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SUPER_SECRET_KEY).compact();
-		
-		response.addHeader(HEADER_AUTHORIZACION_KEY, TOKEN_BEARER_PREFIX + " " + token);//devuelve token por cabecera
-		response.getWriter().write("{\"token\": \"" + token + "\"}");//devuelve token por body
+
+		// devuelve token por body y role por cabecera
+		response.addHeader(HEADER_AUTHORIZACION_KEY, TOKEN_BEARER_PREFIX + " " + token);// devuelve token por cabecera
+		response.getWriter().write("{\"token\": \"" + token + "\"," + comillas + "role" + comillas + ":" + comillas
+				+ auth.getAuthorities().iterator().next().getAuthority() + comillas + "}");
+
 		System.out.println(response.getHeader(HEADER_AUTHORIZACION_KEY));
-	
+
 	}
-	
-	
-	
+
 }

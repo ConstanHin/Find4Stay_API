@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.dto.Cuenta;
 import api.dto.Empresa;
+import api.models.CuentaEmpresa;
 import api.service.EmpresaServiceImpl;
 
 @RestController
@@ -22,16 +25,41 @@ public class EmpresaController {
 	@Autowired
 	EmpresaServiceImpl empresaServiceImpl;
 	
+	@Autowired
+	CuentaController cuentaController;
+	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/empresas")
 	public List<Empresa> listarEmpresa(){
+//		Recogiendo los principal authenticado
+//		SecurityContext context = SecurityContextHolder.getContext();
+//		System.out.println(context.getAuthentication().getName());
+
 		return empresaServiceImpl.listarEmpresa();
 	}
 	
 	@PostMapping("/empresas")
-	public Empresa guardarEmpresa(@RequestBody Empresa empresas){
-		return empresaServiceImpl.guardarReservas(empresas);
+	public Empresa guardarEmpresa(@RequestBody CuentaEmpresa cuentaEmpresa){
+		
+		Cuenta cuenta = new Cuenta();
+		cuenta.setUsername(cuentaEmpresa.getUsername());
+		cuenta.setPassword(cuentaEmpresa.getPassword());
+		cuenta.setEmail(cuentaEmpresa.getEmail());
+		cuenta.setRole("ROLE_EMPRESA");
+		
+		// Crear primero la cuenta a la que está relacionada
+		cuentaController.salvarCuenta(cuenta);
+		
+		// Crear empresa
+		Empresa empresa = new Empresa();
+		empresa.setNombre(cuentaEmpresa.getNombre());
+		empresa.setCodigo_empresa(cuentaEmpresa.getCodigo_empresa());
+		empresa.setCuenta(cuenta);
+		
+		return empresaServiceImpl.guardarEmpresa(empresa);
 	}
 	
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/empresas/{id}")
 	public Empresa Empresa_ID(@PathVariable(name="id") Long id) {
 		
@@ -60,8 +88,12 @@ public class EmpresaController {
 	}
 	
 	@DeleteMapping("/empresas/{id}")
-	public void eleiminarEmpresas(@PathVariable(name="id")Long id) {
+	public void eliminarEmpresas(@PathVariable(name="id")Long id) {
 		empresaServiceImpl.eliminarEmpresa(id);
 	}
+	
+	/**
+	 * Método que devuelve los hoteles de la empresa autentificada
+	 */
 	
 }

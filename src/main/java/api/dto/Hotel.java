@@ -135,6 +135,8 @@ public class Hotel {
 		this.reserva = reserva;
 	}
 
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
 	public Empresa getEmpresa() {
 		return empresa;
 	}

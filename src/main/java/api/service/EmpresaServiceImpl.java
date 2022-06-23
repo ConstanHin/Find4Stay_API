@@ -21,7 +21,7 @@ public class EmpresaServiceImpl implements IEmpresaService{
 	}
 
 	@Override
-	public Empresa guardarReservas(Empresa empresa) {
+	public Empresa guardarEmpresa(Empresa empresa) {
 		
 		return iempresaDAO.save(empresa);
 	}
