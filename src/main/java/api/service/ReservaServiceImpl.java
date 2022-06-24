@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import api.dao.IReservaDAO;
+import api.dto.Hotel;
 import api.dto.Reserva;
 
 @Service
@@ -42,5 +43,9 @@ public class ReservaServiceImpl implements IReservaService{
 	public void eliminarReservas(Long id) {
 		ireservasDAO.deleteById(id);
 		
+	}
+	
+	public List<Reserva> getReservasByClienteId(Integer clienteId) {
+		return ireservasDAO.findReservasByClienteId(clienteId);
 	}
 }
