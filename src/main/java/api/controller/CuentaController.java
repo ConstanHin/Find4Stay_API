@@ -89,21 +89,27 @@ public class CuentaController {
 	@PutMapping("/cuentas/{id}")
 	public Cuenta actualizarCuenta(@PathVariable(name="id")Long id,@RequestBody Cuenta cuenta) {
 		
-		Cuenta cuenta_seleccionado= new Cuenta();
-		Cuenta cuenta_actualizado= new Cuenta();
-		
-		cuenta_seleccionado= cuentaServiceImpl.cuentasXID(id);
-		
-		cuenta_seleccionado.setUsername(cuenta.getUsername());
-		cuenta_seleccionado.setPassword(cuenta.getPassword());
-		cuenta_seleccionado.setEmail(cuenta.getEmail());
-		cuenta_seleccionado.setRole(cuenta.getRole());
-		
-		
-		cuenta_actualizado = cuentaServiceImpl.actualizarCuenta(cuenta_seleccionado);
-		
-		
-		return cuenta_actualizado;
+		try {
+			Cuenta cuenta_seleccionado= new Cuenta();
+			Cuenta cuenta_actualizado= new Cuenta();
+			
+			cuenta_seleccionado= cuentaServiceImpl.cuentasXID(id);
+			
+			cuenta_seleccionado.setUsername(cuenta.getUsername());
+			cuenta_seleccionado.setPassword(cuenta.getPassword());
+			cuenta_seleccionado.setEmail(cuenta.getEmail());
+			cuenta_seleccionado.setRole(cuenta.getRole());
+			
+			
+			cuenta_actualizado = cuentaServiceImpl.actualizarCuenta(cuenta_seleccionado);
+			
+			
+			return cuenta_actualizado;
+			
+		} catch (Exception e) {
+			throw new Error(e);
+		}
+
 	}
 	
 	/**
@@ -125,9 +131,9 @@ public class CuentaController {
 	}
 	
 	/**
-	 * Return cuenta by authenticated
+	 * Return cuenta authenticada
 	 */
-	@GetMapping("/cuenta/auth")
+	@GetMapping("/cuentas/auth")
 	public Object cuentaAuthenticated() {
 		
 		// Obtenemos authenticated
@@ -137,6 +143,39 @@ public class CuentaController {
 		Cuenta cuenta = cuentaServiceImpl.getCuentaByUsername(authentication.getName());
 		
 		return cuenta;
+	}
+	
+	/**
+	 * Editar cuenta authenticada
+	 */
+	@PostMapping("/cuentas/auth")
+	public Cuenta editCuentaAuthenticated(@RequestBody Cuenta cuentaInput) {
+		try {
+		
+		// Obtenemos authenticated
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		// Obtenemos la cuenta a partir del nombre de la cuenta authenticated
+		Cuenta cuenta_selecionada = cuentaServiceImpl.getCuentaByUsername(authentication.getName());
+		
+			if(cuentaInput.getUsername() != "") {
+				cuenta_selecionada.setUsername(cuentaInput.getUsername());
+			}
+			if(cuentaInput.getPassword() != "") {
+				cuenta_selecionada.setPassword(bCryptPasswordEncoder.encode(cuentaInput.getPassword()));
+			}
+			if(cuentaInput.getEmail() != "") {
+				cuenta_selecionada.setEmail(cuentaInput.getEmail());
+			}
+			
+			cuentaServiceImpl.actualizarCuenta(cuenta_selecionada);
+			
+			return cuenta_selecionada;
+			
+		} catch (Exception e) {
+			throw new Error(e);
+		}
+
 	}
 	
 
