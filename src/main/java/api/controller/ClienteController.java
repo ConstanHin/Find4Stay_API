@@ -99,6 +99,7 @@ public class ClienteController {
 		
 		// Crear cliente
 		Cliente cliente = new Cliente();
+		cliente.setNombre(cuentaCliente.getUsername());
 		cliente.setCuenta(cuenta);
 		
 		return clienteServiceImpl.addNewCliente(cliente);
