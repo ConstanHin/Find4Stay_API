@@ -88,7 +88,9 @@ public class ClienteController {
 		cliente_seleccionada.setNombre(cliente.getNombre());
 		cliente_seleccionada.setApellido(cliente.getApellido());
 		cliente_seleccionada.setDni(cliente.getDni());
-		cliente_seleccionada.setCuenta(cliente.getCuenta());
+		if(cliente.getCuenta() != null) {
+			cliente_seleccionada.setCuenta(cliente.getCuenta());			
+		}
 
 		cliente_actualizada = clienteServiceImpl.updateCliente(cliente_seleccionada);
 		return cliente_actualizada;
