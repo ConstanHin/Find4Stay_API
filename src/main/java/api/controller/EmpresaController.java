@@ -42,7 +42,7 @@ public class EmpresaController {
 	
 	
 	// Constructor
-	public EmpresaController() {
+	public EmpresaController(BCryptPasswordEncoder bCryptPasswordEncoder) {
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 	
@@ -81,15 +81,17 @@ public class EmpresaController {
 	@PostMapping("/empresas/guest")
 	public Empresa addNewEmpresaGuest(@RequestBody CuentaEmpresa cuentaEmpresa) {
 		
-		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
-		System.out.println(cuentaEmpresa.toString());
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------\n");
+		System.out.println("cuentaem: " + cuentaEmpresa.toString());
+		System.out.println("cuentaem2: " +cuentaEmpresa.getPassword());
 		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
 		
 		Cuenta cuenta = new Cuenta();
 		cuenta.setUsername(cuentaEmpresa.getUsername());
-		cuenta.setPassword(bCryptPasswordEncoder.encode(cuentaEmpresa.getPassword()));
+		cuenta.setPassword(cuentaEmpresa.getPassword());
+		System.out.println(cuenta.getPassword());
 		cuenta.setEmail(cuentaEmpresa.getEmail());
-		cuenta.setRole("ROLE_CLIENTE");
+		cuenta.setRole("ROLE_EMPRESA");
 		
 		// Crear primero la cuenta a la que está relacionada
 		cuentaController.salvarCuenta(cuenta);
