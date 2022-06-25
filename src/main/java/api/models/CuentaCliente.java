@@ -143,6 +143,12 @@ public class CuentaCliente {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+
+	@Override
+	public String toString() {
+		return "CuentaCliente [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", role=" + role + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + "]";
+	}
 	
 	
 

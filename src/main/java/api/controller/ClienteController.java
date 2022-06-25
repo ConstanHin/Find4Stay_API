@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class ClienteController {
 	@Autowired
 	CuentaController cuentaController;
 	
+	private BCryptPasswordEncoder bCryptPasswordEncoder;	
 	
 	// Get all
 	@GetMapping("/clientes")
@@ -46,9 +48,13 @@ public class ClienteController {
 	@PostMapping("/clientes")
 	public Cliente addNewCliente(@RequestBody CuentaCliente cuentaCliente) {
 		
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
+		System.out.println(cuentaCliente.toString());
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
+		
 		Cuenta cuenta = new Cuenta();
 		cuenta.setUsername(cuentaCliente.getUsername());
-		cuenta.setPassword(cuentaCliente.getPassword());
+		cuenta.setPassword(bCryptPasswordEncoder.encode(cuentaCliente.getPassword()));
 		cuenta.setEmail(cuentaCliente.getEmail());
 		cuenta.setRole("ROLE_CLIENTE");
 		
