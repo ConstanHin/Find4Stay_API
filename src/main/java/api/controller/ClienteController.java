@@ -17,6 +17,7 @@ import api.dto.Cliente;
 import api.dto.Cuenta;
 import api.models.CuentaCliente;
 import api.service.ClienteServiceImpl;
+import api.service.CuentaServiceImpl;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +30,10 @@ public class ClienteController {
 	CuentaController cuentaController;
 	
 	private BCryptPasswordEncoder bCryptPasswordEncoder;	
+	
+	public ClienteController(BCryptPasswordEncoder bCryptPasswordEncoder) {
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
 	
 	// Get all
 	@GetMapping("/clientes")
