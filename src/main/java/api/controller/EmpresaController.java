@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import api.dto.Cuenta;
 import api.dto.Empresa;
+import api.dto.Reserva;
 import api.models.CuentaEmpresa;
+import api.service.CuentaServiceImpl;
 import api.service.EmpresaServiceImpl;
 
 @RestController
@@ -27,6 +31,9 @@ public class EmpresaController {
 	
 	@Autowired
 	CuentaController cuentaController;
+	
+	@Autowired
+	CuentaServiceImpl cuentaServiceImpl;
 	
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/empresas")
@@ -95,5 +102,26 @@ public class EmpresaController {
 	/**
 	 * Método que devuelve los hoteles de la empresa autentificada
 	 */
+	
+	/**
+	 * Devuelve los datos de la empresa authenticada
+	 * @return
+	 */
+	@PreAuthorize("hasAnyAuthority('ROLE_EMPRESA')")
+	@GetMapping("/empresas/auth")
+	public Empresa getReservasOfClienteAuth() {
+
+		// Obtenemos authenticated
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		// Obtenemos la cuenta a partir del nombre de la cuenta authenticated
+		Cuenta cuenta = cuentaServiceImpl.getCuentaByUsername(authentication.getName());
+
+		// Obtener id empresa
+		Empresa empresa = cuenta.getEmpresa();
+
+
+		return empresa;
+	}
 	
 }
