@@ -3,6 +3,7 @@ package api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +51,7 @@ public class ClienteController {
 	// Para crear un cliente se necesita crear primero una cuenta
 	// Se le pasa el objeto cuenta por body
 	// Add Cliente
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@PostMapping("/clientes")
 	public Cliente addNewCliente(@RequestBody CuentaCliente cuentaCliente) {
 		
@@ -71,6 +73,32 @@ public class ClienteController {
 		cliente.setNombre(cuentaCliente.getUsername());
 		cliente.setApellido(cuentaCliente.getApellido());
 		cliente.setDni(cuentaCliente.getDni());
+		cliente.setCuenta(cuenta);
+		
+		return clienteServiceImpl.addNewCliente(cliente);
+	}
+	
+	// Para crear un cliente se necesita crear primero una cuenta
+	// Se le pasa el objeto cuenta por body
+	// Add Cliente
+	@PostMapping("/clientes/guest")
+	public Cliente addNewClienteGuest(@RequestBody CuentaCliente cuentaCliente) {
+		
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
+		System.out.println(cuentaCliente.toString());
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
+		
+		Cuenta cuenta = new Cuenta();
+		cuenta.setUsername(cuentaCliente.getUsername());
+		cuenta.setPassword(bCryptPasswordEncoder.encode(cuentaCliente.getPassword()));
+		cuenta.setEmail(cuentaCliente.getEmail());
+		cuenta.setRole("ROLE_CLIENTE");
+		
+		// Crear primero la cuenta a la que está relacionada
+		cuentaController.salvarCuenta(cuenta);
+		
+		// Crear cliente
+		Cliente cliente = new Cliente();
 		cliente.setCuenta(cuenta);
 		
 		return clienteServiceImpl.addNewCliente(cliente);
