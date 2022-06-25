@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.dto.Cliente;
 import api.dto.Cuenta;
 import api.dto.Empresa;
 import api.dto.Reserva;
+import api.models.CuentaCliente;
 import api.models.CuentaEmpresa;
 import api.service.CuentaServiceImpl;
 import api.service.EmpresaServiceImpl;
@@ -34,6 +37,14 @@ public class EmpresaController {
 	
 	@Autowired
 	CuentaServiceImpl cuentaServiceImpl;
+	
+	private BCryptPasswordEncoder bCryptPasswordEncoder;	
+	
+	
+	// Constructor
+	public EmpresaController() {
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
 	
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/empresas")
@@ -61,6 +72,31 @@ public class EmpresaController {
 		Empresa empresa = new Empresa();
 		empresa.setNombre(cuentaEmpresa.getNombre());
 		empresa.setCodigo_empresa(cuentaEmpresa.getCodigo_empresa());
+		empresa.setCuenta(cuenta);
+		
+		return empresaServiceImpl.guardarEmpresa(empresa);
+	}
+	
+	// Anadir empresa desde registro sin restriccion
+	@PostMapping("/empresas/guest")
+	public Empresa addNewEmpresaGuest(@RequestBody CuentaEmpresa cuentaEmpresa) {
+		
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
+		System.out.println(cuentaEmpresa.toString());
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
+		
+		Cuenta cuenta = new Cuenta();
+		cuenta.setUsername(cuentaEmpresa.getUsername());
+		cuenta.setPassword(bCryptPasswordEncoder.encode(cuentaEmpresa.getPassword()));
+		cuenta.setEmail(cuentaEmpresa.getEmail());
+		cuenta.setRole("ROLE_CLIENTE");
+		
+		// Crear primero la cuenta a la que está relacionada
+		cuentaController.salvarCuenta(cuenta);
+		
+		// Crear empresa
+		Empresa empresa= new Empresa();
+		empresa.setNombre(cuentaEmpresa.getUsername());
 		empresa.setCuenta(cuenta);
 		
 		return empresaServiceImpl.guardarEmpresa(empresa);
