@@ -82,6 +82,9 @@ public class ClienteController {
 
 		Cliente cliente_seleccionada = new Cliente();
 		Cliente cliente_actualizada = new Cliente();
+		
+		System.out.println("CLiente: ---------");
+		System.out.println(cliente.toString());
 
 		cliente_seleccionada = clienteServiceImpl.getById(id);
 
