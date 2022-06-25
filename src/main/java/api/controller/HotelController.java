@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import api.dto.Cuenta;
+import api.dto.Empresa;
 import api.dto.Hotel;
+import api.models.HotelModel;
 import api.service.CuentaServiceImpl;
 import api.service.HotelServiceImpl;
 
@@ -38,9 +40,63 @@ public class HotelController {
 		return hotelServiceImp.listarHotel();
 	}
 
+	/**
+	 * Add new hotel
+	 * @param hotelInput
+	 * @return
+	 */
 	@PostMapping("/hoteles")
-	public Hotel guardarHotel(@RequestBody Hotel Hotel) {
-		return hotelServiceImp.guardarHotel(Hotel);
+	public Hotel guardarHotel(@RequestBody HotelModel hotelInput) {
+		System.out.println(hotelInput);
+		
+		Hotel hotel = new Hotel();
+		Empresa empresa = new Empresa();
+		//Settear campo empresa en hotel
+		Long idEmpresa = (long) hotelInput.getId_empresa();
+		empresa.setId(idEmpresa);
+		hotel.setEmpresa(empresa);
+		
+		//Otros campos
+		hotel.setCategoria(hotelInput.getCategoria());
+		hotel.setNombre(hotelInput.getNombre());
+		hotel.setPoblacion(hotelInput.getPoblacion());
+		hotel.setPrecio(hotelInput.getPrecio());
+		hotel.setUbicacion(hotelInput.getUbicacion());
+
+		return hotelServiceImp.guardarHotel(hotel);
+	}
+	
+	/**
+	 * Add new hotel by auth account
+	 * @param hotelInput
+	 * @return
+	 */
+	@PreAuthorize("hasAnyAuthority('ROLE_EMPRESA')")
+	@PostMapping("/hoteles/auth")
+	public Hotel guardarHotelByAuthCuenta(@RequestBody HotelModel hotelInput) {
+		// Obtenemos authenticated
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		// Obtenemos la cuenta a partir del nombre de la cuenta authenticated
+		Cuenta cuenta = cuentaServiceImpl.getCuentaByUsername(authentication.getName());
+
+		// Obtener id empresa
+		Long idEmpresa = cuenta.getEmpresa().getId();
+		
+		Hotel hotel = new Hotel();
+		Empresa empresa = new Empresa();
+		//Settear campo empresa en hotel
+		empresa.setId(idEmpresa);
+		hotel.setEmpresa(empresa);
+		
+		//Otros campos
+		hotel.setCategoria(hotelInput.getCategoria());
+		hotel.setNombre(hotelInput.getNombre());
+		hotel.setPoblacion(hotelInput.getPoblacion());
+		hotel.setPrecio(hotelInput.getPrecio());
+		hotel.setUbicacion(hotelInput.getUbicacion());
+
+		return hotelServiceImp.guardarHotel(hotel);
 	}
 	
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
