@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("storage")
 public class StorageProperties {
 	
-	private String directorio = "upload-dir";
+	private String directorio = "src/main/resources/upload-dir";
 
 	public String getDirectorio() {
 		return directorio;

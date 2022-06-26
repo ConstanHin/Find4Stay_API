@@ -10,15 +10,15 @@ import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+@Service
 public class FileSystemStorageService implements StorageService{
 
-	@Value("${inputFilePath}")
 	private final Path rootDirectorio;
 	
 	@Autowired
