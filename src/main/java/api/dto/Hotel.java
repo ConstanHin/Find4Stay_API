@@ -2,14 +2,12 @@ package api.dto;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -39,6 +37,9 @@ public class Hotel {
 	
 	@Column(name = "precio")
 	private double precio;
+	
+	@Column(name = "imagenes")
+	private String imagenes;
 
 	@OneToMany
 	@JoinColumn(name = "id_hotel")
@@ -63,7 +64,7 @@ public class Hotel {
 	 * @param reserva
 	 * @param empresa
 	 */
-	public Hotel(Long id, String nombre, String categoria, String poblacion, String ubicacion, double precio,
+	public Hotel(Long id, String nombre, String categoria, String poblacion, String ubicacion, double precio, String imagenes,
 			List<Reserva> reserva, Empresa empresa) {
 		super();
 		this.id = id;
@@ -72,6 +73,7 @@ public class Hotel {
 		this.poblacion = poblacion;
 		this.ubicacion = ubicacion;
 		this.precio = precio;
+		this.imagenes= imagenes;
 		this.reserva = reserva;
 		this.empresa = empresa;
 	}
@@ -123,6 +125,14 @@ public class Hotel {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	public String getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(String imagenes) {
+		this.imagenes = imagenes;
 	}
 
 	@JsonIgnore

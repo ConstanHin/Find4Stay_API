@@ -62,6 +62,7 @@ public class HotelController {
 		hotel.setPoblacion(hotelInput.getPoblacion());
 		hotel.setPrecio(hotelInput.getPrecio());
 		hotel.setUbicacion(hotelInput.getUbicacion());
+		hotel.setImagenes(hotelInput.getImagenes());
 
 		return hotelServiceImp.guardarHotel(hotel);
 	}
@@ -95,6 +96,7 @@ public class HotelController {
 		hotel.setPoblacion(hotelInput.getPoblacion());
 		hotel.setPrecio(hotelInput.getPrecio());
 		hotel.setUbicacion(hotelInput.getUbicacion());
+		hotel.setImagenes(hotelInput.getImagenes());
 
 		return hotelServiceImp.guardarHotel(hotel);
 	}

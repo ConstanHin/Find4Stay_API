@@ -1,14 +1,7 @@
 package api.models;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import api.dto.Empresa;
-import api.dto.Reserva;
+
 
 public class HotelModel {
 
@@ -17,6 +10,7 @@ public class HotelModel {
 	private String poblacion;
 	private String ubicacion;
 	private double precio;
+	private String imagenes;
 	private double id_empresa;
 	private Empresa empresa;
 
@@ -92,6 +86,15 @@ public class HotelModel {
 	 */
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	
+	public String getImagenes() {
+		return imagenes;
+	}
+
+	public void setImagenes(String imagenes) {
+		this.imagenes = imagenes;
 	}
 
 	/**
