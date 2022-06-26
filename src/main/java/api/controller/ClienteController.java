@@ -118,9 +118,15 @@ public class ClienteController {
 
 		cliente_seleccionada = clienteServiceImpl.getById(id);
 
-		cliente_seleccionada.setNombre(cliente.getNombre());
-		cliente_seleccionada.setApellido(cliente.getApellido());
-		cliente_seleccionada.setDni(cliente.getDni());
+		if(cliente.getNombre() != null) {
+			cliente_seleccionada.setNombre(cliente.getNombre());			
+		}
+		if(cliente.getApellido() != null) {
+			cliente_seleccionada.setApellido(cliente.getApellido());			
+		}
+		if(cliente.getDni() != null) {
+			cliente_seleccionada.setDni(cliente.getDni());			
+		}
 		if(cliente.getCuenta() != null) {
 			cliente_seleccionada.setCuenta(cliente.getCuenta());			
 		}
