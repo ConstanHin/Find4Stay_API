@@ -3,7 +3,6 @@ package api.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -159,6 +158,14 @@ public class HotelController {
 		System.out.println("Hoteles: " + hoteles);
 
 		return hoteles;
+	}
+	
+	@GetMapping("/hoteles/ciudad/{ciudad}")
+	public List<Hotel> getHotelesPorCiudad(@PathVariable(name = "ciudad") String ciudad) {
+		
+		
+		return hotelServiceImp.findHotelesByCiudad(ciudad);
+		
 	}
 
 }

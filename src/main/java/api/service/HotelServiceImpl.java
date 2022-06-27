@@ -42,5 +42,9 @@ public class HotelServiceImpl implements IHotelService {
 	public List<Hotel> getHotelesByEmpresaId(Integer empresaId) {
 		return iHotelDAO.findHotelByEmpresaID(empresaId);
 	}
+	
+	public List<Hotel> findHotelesByCiudad(String ciudad) {
+		return iHotelDAO.findHotelesByCiudad(ciudad);
+	}
 
 }
