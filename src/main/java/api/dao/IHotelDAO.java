@@ -11,8 +11,9 @@ public interface IHotelDAO extends JpaRepository<Hotel, Long> {
 	
 	@Query(value = "SELECT * FROM hoteles WHERE (id_empresa = ?1)", nativeQuery = true)
 	List<Hotel> findHotelByEmpresaID(Integer empresaId);
+
 	
 	@Query(value = "SELECT * FROM hoteles WHERE (poblacion = ?1)", nativeQuery = true)
-	List<Hotel> findHotelesByCiudad(String ciudad);
+	List<Hotel> findHotelByPoblacion(long poblacion);
 
 }
