@@ -60,7 +60,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST, "/api/clientes/guest").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/empresas/guest").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/hoteles/ciudad/**").permitAll()
-			.antMatchers(HttpMethod.GET, "/file/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/file/**").permitAll()
 			.anyRequest().authenticated()
 //			.anyRequest().permitAll()
 //			.anyRequest().hasAuthority("ROLE_ADMIN")

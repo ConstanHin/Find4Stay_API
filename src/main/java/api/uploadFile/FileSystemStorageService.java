@@ -45,7 +45,7 @@ public class FileSystemStorageService implements StorageService{
 		
 	}
 		catch (IOException e) {
-			throw new StorageException("No se pudo almacenar el archivo", e);
+			throw new StorageException("No se pudo almacenar el archivo: ", e);
 		}
 	}
 
@@ -77,11 +77,11 @@ public class FileSystemStorageService implements StorageService{
 				}
 				else {
 					throw new StorageFileNotFoundException(
-							"No se pudo leer el archivo" + filename);
+							"No se pudo leer el archivo: " + filename);
 				}
 			}
 			catch (MalformedURLException e) {
-				throw new StorageFileNotFoundException("No se pudo leer el archivo" + filename, e);
+				throw new StorageFileNotFoundException("No se pudo leer el archivo: " + filename, e);
 			}
 	}
 
