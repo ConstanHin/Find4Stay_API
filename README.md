@@ -59,5 +59,7 @@ Teoria - Empresa buscar sus propios hoteles
 ### GET - "/api/hoteles/empresa"  
 Devuelve los **hoteles de la empresa autenticada**. Accesible solo con una cuenta con **ROLE_EMPRESA**.
 
+### GET - "/api/file/add/{id}"
+
 ![diagrama entidad relacion base de datos](https://user-images.githubusercontent.com/67373492/170439093-f2eb62a6-49af-487c-9e8e-79d8b737789f.png)
 
