@@ -29,10 +29,9 @@ public class ClienteController {
 	@Autowired
 	CuentaController cuentaController;
 	
-	private BCryptPasswordEncoder bCryptPasswordEncoder;	
+
 	
-	public ClienteController(BCryptPasswordEncoder bCryptPasswordEncoder) {
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	public ClienteController() {
 	}
 	
 	// Get all
