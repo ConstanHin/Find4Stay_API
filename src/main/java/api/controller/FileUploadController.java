@@ -45,7 +45,7 @@ public class FileUploadController {
 	public String handleFileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
 
 		storageService.store(file);
-		String path = "src/main/resources/upload-dir" + file + ".jpg";
+		String path = "/api/file/" + file.getOriginalFilename();
 		
 		hotelController.actualizarImagenHotel(id, path);
 		
