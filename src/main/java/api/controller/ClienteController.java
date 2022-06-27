@@ -60,7 +60,7 @@ public class ClienteController {
 		
 		Cuenta cuenta = new Cuenta();
 		cuenta.setUsername(cuentaCliente.getUsername());
-		cuenta.setPassword(bCryptPasswordEncoder.encode(cuentaCliente.getPassword()));
+		cuenta.setPassword(cuentaCliente.getPassword());
 		cuenta.setEmail(cuentaCliente.getEmail());
 		cuenta.setRole("ROLE_CLIENTE");
 		
