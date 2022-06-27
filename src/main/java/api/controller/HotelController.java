@@ -124,11 +124,30 @@ public class HotelController {
 		hotel_seleccionado.setUbicacion(hotel.getUbicacion());
 		hotel_seleccionado.setPrecio(hotel.getPrecio());
 		hotel_seleccionado.setEmpresa(hotel.getEmpresa());
+		if (hotel.getImagenes() != null) {
+			hotel_seleccionado.setImagenes(hotel.getImagenes());
+		}
 
 		hotel_actualizado = hotelServiceImp.actualizarHotel(hotel_seleccionado);
 
 		return hotel_actualizado;
 	}
+	
+	// Actualizar imagen del hotel
+	public Hotel actualizarImagenHotel(Long id, String path) {
+
+		Hotel hotel_seleccionado = new Hotel();
+		Hotel hotel_actualizado = new Hotel();
+
+		hotel_seleccionado = hotelServiceImp.HotelXID(id);
+
+		hotel_seleccionado.setImagenes(path);
+
+		hotel_actualizado = hotelServiceImp.actualizarHotel(hotel_seleccionado);
+
+		return hotel_actualizado;
+	}
+	
 
 	@DeleteMapping("/hoteles/{id}")
 	public void eleiminarHotel(@PathVariable(name = "id") Long id) {
