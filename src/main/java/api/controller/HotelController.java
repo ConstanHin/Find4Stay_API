@@ -179,9 +179,11 @@ public class HotelController {
 		return hoteles;
 	}
 	
-	@GetMapping("/hoteles/poblacion/{poblacion}")
-	public List<Hotel> getHotelesPorPoblacion(@PathVariable(name = "poblacion") long poblacion) {
-		return hotelServiceImp.getHotelesByPoblacion(poblacion);
+	@GetMapping("/hoteles/ciudad/{ciudad}")
+	public List<Hotel> getHotelesPorCiudad(@PathVariable(name = "ciudad") String ciudad) {
+		
+		
+		return hotelServiceImp.findHotelesByCiudad(ciudad);
 		
 	}
 
