@@ -41,7 +41,7 @@ public class FileUploadController {
 					.body(file);
 	}
 	
-	@PostMapping("/file/add/{id}")
+	@PostMapping("hoteles/file/add/{id}")
 	public String handleFileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
 
 		storageService.store(file);
