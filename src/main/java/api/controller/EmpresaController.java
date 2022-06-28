@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.dto.Cliente;
 import api.dto.Cuenta;
 import api.dto.Empresa;
+import api.dto.Reserva;
+import api.models.CuentaCliente;
+import api.models.CuentaEmpresa;
+import api.service.CuentaServiceImpl;
 import api.service.EmpresaServiceImpl;
 
 @RestController
@@ -27,6 +35,17 @@ public class EmpresaController {
 	@Autowired
 	CuentaController cuentaController;
 	
+	@Autowired
+	CuentaServiceImpl cuentaServiceImpl;
+	
+	private BCryptPasswordEncoder bCryptPasswordEncoder;	
+	
+	
+	// Constructor
+	public EmpresaController(BCryptPasswordEncoder bCryptPasswordEncoder) {
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
+	
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	@GetMapping("/empresas")
 	public List<Empresa> listarEmpresa(){
@@ -38,14 +57,48 @@ public class EmpresaController {
 	}
 	
 	@PostMapping("/empresas")
-	public Empresa guardarEmpresa(@RequestBody Cuenta cuenta){
+	public Empresa guardarEmpresa(@RequestBody CuentaEmpresa cuentaEmpresa){
+		
+		Cuenta cuenta = new Cuenta();
+		cuenta.setUsername(cuentaEmpresa.getUsername());
+		cuenta.setPassword(cuentaEmpresa.getPassword());
+		cuenta.setEmail(cuentaEmpresa.getEmail());
+		cuenta.setRole("ROLE_EMPRESA");
 		
 		// Crear primero la cuenta a la que está relacionada
 		cuentaController.salvarCuenta(cuenta);
 		
 		// Crear empresa
 		Empresa empresa = new Empresa();
-		empresa.setNombre(cuenta.getUsername());
+		empresa.setNombre(cuentaEmpresa.getNombre());
+		empresa.setCodigo_empresa(cuentaEmpresa.getCodigo_empresa());
+		empresa.setCuenta(cuenta);
+		
+		return empresaServiceImpl.guardarEmpresa(empresa);
+	}
+	
+	// Anadir empresa desde registro sin restriccion
+	@PostMapping("/empresas/guest")
+	public Empresa addNewEmpresaGuest(@RequestBody CuentaEmpresa cuentaEmpresa) {
+		
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------\n");
+		System.out.println("cuentaem: " + cuentaEmpresa.toString());
+		System.out.println("cuentaem2: " +cuentaEmpresa.getPassword());
+		System.out.println("----------!!!!!!!!!!!!!!!!!!!!--------");
+		
+		Cuenta cuenta = new Cuenta();
+		cuenta.setUsername(cuentaEmpresa.getUsername());
+		cuenta.setPassword(cuentaEmpresa.getPassword());
+		System.out.println(cuenta.getPassword());
+		cuenta.setEmail(cuentaEmpresa.getEmail());
+		cuenta.setRole("ROLE_EMPRESA");
+		
+		// Crear primero la cuenta a la que está relacionada
+		cuentaController.salvarCuenta(cuenta);
+		
+		// Crear empresa
+		Empresa empresa= new Empresa();
+		empresa.setNombre(cuentaEmpresa.getUsername());
 		empresa.setCuenta(cuenta);
 		
 		return empresaServiceImpl.guardarEmpresa(empresa);
@@ -87,5 +140,26 @@ public class EmpresaController {
 	/**
 	 * Método que devuelve los hoteles de la empresa autentificada
 	 */
+	
+	/**
+	 * Devuelve los datos de la empresa authenticada
+	 * @return
+	 */
+	@PreAuthorize("hasAnyAuthority('ROLE_EMPRESA')")
+	@GetMapping("/empresas/auth")
+	public Empresa getReservasOfClienteAuth() {
+
+		// Obtenemos authenticated
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		// Obtenemos la cuenta a partir del nombre de la cuenta authenticated
+		Cuenta cuenta = cuentaServiceImpl.getCuentaByUsername(authentication.getName());
+
+		// Obtener id empresa
+		Empresa empresa = cuenta.getEmpresa();
+
+
+		return empresa;
+	}
 	
 }

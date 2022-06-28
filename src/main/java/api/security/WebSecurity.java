@@ -2,6 +2,12 @@ package api.security;
 
 import static api.security.Constants.LOGIN_URL;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.servlet.Filter;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,6 +29,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	private UserDetailsService userDetailsService;
+	private Filter simpleCorsFilter;
 
 	public WebSecurity(UserDetailsService userDetailsService) {
 		this.userDetailsService = userDetailsService;
@@ -32,7 +39,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
+	
+	@Autowired
+	public SimpleCORSFilter myCorsFilter;
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		/*
@@ -48,7 +57,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 			.csrf().disable()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+			.antMatchers(HttpMethod.POST, "/api/clientes/guest").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/empresas/guest").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/hoteles/ciudad/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/api/file/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/hoteles/file/add/**").permitAll()
 			.anyRequest().authenticated()
+//			.anyRequest().permitAll()
 //			.anyRequest().hasAuthority("ROLE_ADMIN")
 			.and()
 				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
@@ -63,8 +78,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration corsConfiguration = new CorsConfiguration();
+		corsConfiguration.setAllowedMethods(Arrays.asList("GET","POST", "OPTIONS", "PUT", "DELETE"));
+		corsConfiguration.setAllowedOrigins(Arrays.asList("*", "https://deploy.d2empnwp4tranl.amplifyapp.com/", "http://deploy.d2empnwp4tranl.amplifyapp.com/"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues().combine(corsConfiguration));
 		return source;
 	}
 }
