@@ -42,14 +42,14 @@ public class FileUploadController {
 	}
 	
 	@PostMapping("hoteles/file/add/{id}")
-	public String handleFileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+	public void handleFileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
 
 		storageService.store(file);
 		String path = "/api/file/" + file.getOriginalFilename();
 		
 		hotelController.actualizarImagenHotel(id, path);
 		
-		return path;
+//		return v;
 	}
 
 }
